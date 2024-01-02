@@ -1,0 +1,6 @@
+{
+    "app": "dotnet run --project ../Tyts.BLambda.Shell.Provision/Tyts.BLambda.Shell.Provision.csproj",
+    "versionReporting": "false",
+    "pathMetadata": "false",
+    "requireApproval": "never"
+}

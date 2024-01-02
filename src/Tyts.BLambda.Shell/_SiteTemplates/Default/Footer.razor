@@ -1,0 +1,44 @@
+﻿@using Tyts.BLambda.Blazor.Components;
+@inject IFlyoutService Flayout
+<footer>    
+    <FluentDivider></FluentDivider>
+
+    <div class="toolbar">
+
+        <FluentButton Appearance="Appearance.Stealth" @onclick="()=>Flayout.LeftSidebar.Toggle()">
+            <FluentIcon Value="@(new Icons.Regular.Size24.MoreHorizontal())" />
+        </FluentButton>
+
+        <FluentDivider Class="mr-auto" Orientation="Orientation.Vertical"></FluentDivider>
+
+
+        <FluentButton id="qcp1" Appearance="Appearance.Stealth" @onclick="() => Flayout.RightSidebar.Toggle()">
+            <FluentIcon Value="@(new Icons.Regular.Size24.BorderNone())" />
+        </FluentButton>
+        @*<FluentTooltip Anchor="qcp1" Position="TooltipPosition.Top">Quick command placeholder</FluentTooltip>*@
+
+        <FluentButton Appearance="Appearance.Stealth">
+            <FluentIcon Value="@(new Icons.Regular.Size24.BorderNone())" />
+        </FluentButton>
+
+        <FluentButton Appearance="Appearance.Stealth">
+            <FluentIcon Value="@(new Icons.Regular.Size24.BorderNone())" />
+        </FluentButton>
+
+        <FluentButton Appearance="Appearance.Stealth">
+            <FluentIcon Value="@(new Icons.Regular.Size24.BorderNone())" />
+        </FluentButton>
+
+        <FluentButton Appearance="Appearance.Stealth">
+            <FluentIcon Value="@(new Icons.Regular.Size24.BorderNone())" />
+        </FluentButton>
+
+    </div>
+
+
+    
+</footer>
+
+@code {
+    
+}

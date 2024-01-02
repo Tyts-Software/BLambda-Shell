@@ -1,0 +1,119 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33209.295
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".doc", ".doc", "{031C0DFB-CF15-465E-B808-376BAED3CF2F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{B285C43C-43DD-43DF-B67A-C6FBFE1D7804}"
+	ProjectSection(SolutionItems) = preProject
+		..\build\build-client.ps1 = ..\build\build-client.ps1
+		..\build\cdk-destroy.ps1 = ..\build\cdk-destroy.ps1
+		..\build\delete-stack.ps1 = ..\build\delete-stack.ps1
+		..\build\deploy.ps1 = ..\build\deploy.ps1
+		..\build\publish.ps1 = ..\build\publish.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{1046D6D9-44DF-499F-9B2A-83711764DB7A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyts.BLambda.Shell.Domain", "Tyts.BLambda.Shell.Domain\Tyts.BLambda.Shell.Domain.csproj", "{9E00924F-6F7A-49FF-8780-DB9B9970836B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".solution items", ".solution items", "{9CACE477-ED19-42DE-9619-5A830F2225D8}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitignore = ..\.gitignore
+		..\LICENSE = ..\LICENSE
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "props", "props", "{E26ACA9E-CB07-4C9A-A78F-6ED17804FC75}"
+	ProjectSection(SolutionItems) = preProject
+		..\build\props\Api.Client.props = ..\build\props\Api.Client.props
+		..\build\props\Api.props = ..\build\props\Api.props
+		..\build\props\Blazor.props = ..\build\props\Blazor.props
+		..\build\props\Common.props = ..\build\props\Common.props
+		..\build\props\NSwag.targets = ..\build\props\NSwag.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BLambda", "BLambda", "{60158C87-B818-4D70-9F63-E55FAAC0830A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyts.BLambda", "..\..\blambda\src\Shared\Tyts.BLambda\Tyts.BLambda.csproj", "{0A7AE108-7708-4265-9575-DA7483CCCA8C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyts.BLambda.Abstructions", "..\..\blambda\src\Shared\Tyts.BLambda.Abstructions\Tyts.BLambda.Abstructions.csproj", "{66284DD1-9AAF-42A3-A7A9-A4DC2F941EB6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyts.BLambda.Blazor.Wasm", "..\..\blambda\src\UI\Tyts.BLambda.Blazor.Wasm\Tyts.BLambda.Blazor.Wasm.csproj", "{FB091238-E40F-4AF1-8E70-2E6FF2DE92AF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyts.BLambda.Blazor.Wasm.Components", "..\..\blambda\src\UI\Tyts.BLambda.Blazor.Wasm.Components\Tyts.BLambda.Blazor.Wasm.Components.csproj", "{71EA36CF-6C1E-4C6D-8DE8-3601047260A0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyts.BLambda.WebApi", "..\..\blambda\src\API\Tyts.BLambda.WebApi\Tyts.BLambda.WebApi.csproj", "{63FD989E-30B1-4CBF-89D6-3F4722CE6FCF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyts.BLambda.WebApi.Client", "..\..\blambda\src\API\Tyts.BLambda.WebApi.Client\Tyts.BLambda.WebApi.Client.csproj", "{A0C46956-FBAA-4D3F-86C0-38B420124070}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Tyts.BLambda.WebApi.NSwag", "..\..\blambda\src\API\Tyts.BLambda.WebApi.NSwag\Tyts.BLambda.WebApi.NSwag.shproj", "{3AD8FABE-37BD-4068-92AC-1F356D1F15A1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyts.BLambda.Shell", "Tyts.BLambda.Shell\Tyts.BLambda.Shell.csproj", "{7CF65922-BB4D-411E-BAD7-7A8A872664C2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyts.BLambda.Shell.Provision", "Tyts.BLambda.Shell.Provision\Tyts.BLambda.Shell.Provision.csproj", "{BCFB925C-D211-4F31-A9C6-68C95D2406DE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9E00924F-6F7A-49FF-8780-DB9B9970836B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E00924F-6F7A-49FF-8780-DB9B9970836B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E00924F-6F7A-49FF-8780-DB9B9970836B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E00924F-6F7A-49FF-8780-DB9B9970836B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A7AE108-7708-4265-9575-DA7483CCCA8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A7AE108-7708-4265-9575-DA7483CCCA8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A7AE108-7708-4265-9575-DA7483CCCA8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A7AE108-7708-4265-9575-DA7483CCCA8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66284DD1-9AAF-42A3-A7A9-A4DC2F941EB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66284DD1-9AAF-42A3-A7A9-A4DC2F941EB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66284DD1-9AAF-42A3-A7A9-A4DC2F941EB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66284DD1-9AAF-42A3-A7A9-A4DC2F941EB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB091238-E40F-4AF1-8E70-2E6FF2DE92AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB091238-E40F-4AF1-8E70-2E6FF2DE92AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB091238-E40F-4AF1-8E70-2E6FF2DE92AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB091238-E40F-4AF1-8E70-2E6FF2DE92AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71EA36CF-6C1E-4C6D-8DE8-3601047260A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71EA36CF-6C1E-4C6D-8DE8-3601047260A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71EA36CF-6C1E-4C6D-8DE8-3601047260A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71EA36CF-6C1E-4C6D-8DE8-3601047260A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63FD989E-30B1-4CBF-89D6-3F4722CE6FCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63FD989E-30B1-4CBF-89D6-3F4722CE6FCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63FD989E-30B1-4CBF-89D6-3F4722CE6FCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63FD989E-30B1-4CBF-89D6-3F4722CE6FCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0C46956-FBAA-4D3F-86C0-38B420124070}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0C46956-FBAA-4D3F-86C0-38B420124070}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0C46956-FBAA-4D3F-86C0-38B420124070}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0C46956-FBAA-4D3F-86C0-38B420124070}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CF65922-BB4D-411E-BAD7-7A8A872664C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CF65922-BB4D-411E-BAD7-7A8A872664C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CF65922-BB4D-411E-BAD7-7A8A872664C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CF65922-BB4D-411E-BAD7-7A8A872664C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCFB925C-D211-4F31-A9C6-68C95D2406DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCFB925C-D211-4F31-A9C6-68C95D2406DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCFB925C-D211-4F31-A9C6-68C95D2406DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCFB925C-D211-4F31-A9C6-68C95D2406DE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E26ACA9E-CB07-4C9A-A78F-6ED17804FC75} = {B285C43C-43DD-43DF-B67A-C6FBFE1D7804}
+		{0A7AE108-7708-4265-9575-DA7483CCCA8C} = {60158C87-B818-4D70-9F63-E55FAAC0830A}
+		{66284DD1-9AAF-42A3-A7A9-A4DC2F941EB6} = {60158C87-B818-4D70-9F63-E55FAAC0830A}
+		{FB091238-E40F-4AF1-8E70-2E6FF2DE92AF} = {60158C87-B818-4D70-9F63-E55FAAC0830A}
+		{71EA36CF-6C1E-4C6D-8DE8-3601047260A0} = {60158C87-B818-4D70-9F63-E55FAAC0830A}
+		{63FD989E-30B1-4CBF-89D6-3F4722CE6FCF} = {60158C87-B818-4D70-9F63-E55FAAC0830A}
+		{A0C46956-FBAA-4D3F-86C0-38B420124070} = {60158C87-B818-4D70-9F63-E55FAAC0830A}
+		{3AD8FABE-37BD-4068-92AC-1F356D1F15A1} = {60158C87-B818-4D70-9F63-E55FAAC0830A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4D91F200-923F-4930-AB7F-18265CCA77FE}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\..\blambda\src\API\Tyts.BLambda.WebApi.NSwag\Tyts.BLambda.WebApi.NSwag.projitems*{3ad8fabe-37bd-4068-92ac-1f356d1f15a1}*SharedItemsImports = 13
+	EndGlobalSection
+EndGlobal

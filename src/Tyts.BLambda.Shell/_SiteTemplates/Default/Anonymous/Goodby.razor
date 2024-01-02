@@ -1,0 +1,59 @@
+﻿@using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+@using Microsoft.Extensions.Options;
+
+<PageTitle>@header</PageTitle>
+
+
+<FlexBox Orientation="Orientation.Vertical"
+         HorizontalAlignment="FlexBoxHorizontalAlignment.Left"
+         VerticalAlignment="FlexBoxVerticalAlignment.Center"
+         Style="height: 80%;">
+    <h3>@header</h3>
+    <section>
+        <p>But looking forward your coming back</p>
+        <FluentButton Appearance="Appearance.Outline" @onclick="LogIn">Login</FluentButton>
+    </section>
+</FlexBox>
+
+@inject NavigationManager Navigation
+@inject IOptionsSnapshot<RemoteAuthenticationOptions<ApiAuthorizationProviderOptions>> Options
+@inject AuthenticationStateProvider AuthStateProvider
+@inject CognitoHelper CognitoHelper
+
+@code {
+    string header = "Bon Voyage";
+    [CascadingParameter] Task<AuthenticationState> AuthenticationState { get; set; } = default!;
+
+    protected override void OnInitialized()
+    {
+        //var state = await AuthStateProvider.GetAuthenticationStateAsync();
+        //var isAuthenticated = state.User.Identity?.IsAuthenticated ?? false;
+        var isAuthenticated = CognitoHelper.IdentityIsAuthenticated();
+
+        // go Home if authenticated
+        if (isAuthenticated)
+        {
+            Navigation.NavigateTo(Navigation.BaseUri);
+        }
+    }
+
+    void LogIn()
+    {
+        var loginPath = Options.Get(Microsoft.Extensions.Options.Options.DefaultName).AuthenticationPaths.LogInPath;
+        var returnUrl = Uri.UnescapeDataString(Navigation.GetQueryStringParam<string>("returnUrl") ?? string.Empty);
+        var isAuthenticated = CognitoHelper.IdentityIsAuthenticated();
+
+        if (isAuthenticated)
+        {
+            Navigation.NavigateTo(returnUrl, replace: true);
+        }
+        else
+        {
+            Navigation.NavigateToLogin(loginPath, new InteractiveRequestOptions
+            {
+                ReturnUrl = returnUrl,
+                Interaction = InteractionType.SignIn
+            });
+        }        
+    }
+}

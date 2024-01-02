@@ -1,0 +1,7 @@
+﻿main {
+    grid-area: main;
+    background: var(--neutral-layer-card-container);
+    padding: calc(var(--design-unit) * 4px);
+    
+    overflow: auto;
+}

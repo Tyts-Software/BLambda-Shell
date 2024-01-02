@@ -1,0 +1,66 @@
+﻿@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.Extensions.Options;
+
+<header class="flex row nowrap center" role="banner">
+    <Logo/>
+    <FlexBox Orientation="Orientation.Vertical" HorizontalGap="0" VerticalGap="0"
+             HorizontalAlignment="FlexBoxHorizontalAlignment.Right"
+             VerticalAlignment="FlexBoxVerticalAlignment.Center"
+             >
+        
+        <AuthorizeView>
+            <Authorized>
+
+                <div class="toolbar">
+                    <FluentButton Appearance="Appearance.Stealth" @onclick="SignOut" title="Sign out">
+                        <FluentIcon Value="@(new Icons.Regular.Size20.SignOut())" />
+                    </FluentButton>
+                </div>
+               
+                <MenuButton Text="@(context.User.Identity?.Name)" Width="175">
+                    <FluentMenuItem onclick="@(() => Navigation.NavigateTo("/account/info"))">
+                        Account Info
+                    </FluentMenuItem>
+                    <FluentDivider />
+
+
+                    @if (this.IsDebug())
+                    {
+                        <FluentMenuItem onclick="@(() => Navigation.NavigateTo("/authentication/identity"))">
+                            Identity
+                        </FluentMenuItem>
+                        <FluentDivider />
+                    }
+
+
+                    <FluentMenuItem @onclick="SignOut">
+                        Sign out
+                    </FluentMenuItem>
+                </MenuButton>
+
+
+
+            </Authorized>
+            <NotAuthorized>
+                <h1>BLambda Shell</h1>
+                <a href="authentication/login">Log in</a>
+            </NotAuthorized>
+        </AuthorizeView>
+
+    </FlexBox>
+</header>
+
+@inject NavigationManager Navigation
+@inject IOptionsSnapshot<RemoteAuthenticationOptions<ApiAuthorizationProviderOptions>> Options
+
+@code {
+    
+    void SignOut()
+    {       
+        var logoutPath = Options.Get(Microsoft.Extensions.Options.Options.DefaultName).AuthenticationPaths.LogOutPath;
+
+        ////! it seems do not clear localStorage
+        //Navigation.NavigateTo(logoutPath, replace: true);
+        Navigation.NavigateToLogout(logoutPath);
+    }
+}

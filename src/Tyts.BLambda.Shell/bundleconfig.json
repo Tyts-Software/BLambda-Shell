@@ -1,0 +1,64 @@
+[
+    {
+        "outputFileName": "wwwroot/css/shell-startup.min.css",
+        "inputFiles": [
+            "_Assets/Styles/startup.css"
+        ],
+        "minify": {
+            "enabled": true,
+            "commentMode": "important"
+        }
+    },
+
+    {
+        "outputFileName": "wwwroot/css/shell-layout.min.css",
+        "inputFiles": [
+            "_Assets/Styles/reboot.css",
+            "_Assets/Styles/utilities.css",
+            "_Assets/Styles/layout.css",
+            "_Assets/Styles/layout.s.css"
+        ],
+        "minify": {
+            "enabled": true,
+            "commentMode": "important"
+        }
+    },
+
+    {
+        "outputFileName": "wwwroot/js/shell.min.js",
+        "inputFiles": [
+            "_Assets/Scripts/util.js",
+            "_Assets/Scripts/luminance.js",
+            "_Assets/Scripts/document.js",
+            "_Assets/Scripts/resource-loader.js",
+            "_Assets/Scripts/Lib/Pako/pako.min.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true,
+            "commentMode": "important"
+        }
+    },
+    {
+        "outputFileName": "wwwroot/js/cognito-oidc-client.min.js",
+        "inputFiles": [
+            "_Assets/Scripts/AuthenticationService/AuthenticationService.js"
+        ],
+        "minify": {
+            "enabled": false,
+            "renameLocals": false,
+            "commentMode": "important"
+        }
+    },
+    {
+        "outputFileName": "wwwroot/js/web-components.min.js",
+        "inputFiles": [
+            "_Assets/Scripts/Lib/web-components.min.js"
+        ],
+        "minify": {
+            "enabled": false,
+            "renameLocals": false,
+            "commentMode": "important"
+        }
+    }
+]

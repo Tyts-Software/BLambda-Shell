@@ -1,0 +1,38 @@
+﻿.flyout {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: fit-content;
+    min-width: var(--min-width);
+    max-width: var(--r-flyout-width);
+    position: fixed;
+    overflow: hidden;
+    border: calc(var(--stroke-width) * 1px) solid transparent;
+    box-shadow: var(--elevation-shadow-dialog);
+    background-color: var(--neutral-layer-floating);
+    transform: translateX(100vw);
+    transition: all .6s ease-in-out;
+    z-index: 40;
+}
+
+    .flyout.opened {
+        transform: translateX(calc(100vw - 100%));
+    }
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: var(--two-dup);
+}
+
+header :first-of-type{
+    margin-left: var(--two-dup);
+}
+
+.main {
+    margin: 0;
+    height: 100%;
+    padding: 1em;
+    overflow: auto;
+}

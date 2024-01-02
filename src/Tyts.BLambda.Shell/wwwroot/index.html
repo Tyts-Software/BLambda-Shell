@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>BLambda.Shell</title>
+	<base href="/" />
+
+	<link href="css/shell-startup.min.css" rel="stylesheet" />
+	<link href="css/shell-layout.min.css" rel="stylesheet" />
+	<link href="tyts.blambda.shell.styles.css" rel="stylesheet" />
+
+	<link rel="modulepreload" href="js/web-components.min.js" />
+	<link rel="modulepreload" href="js/shell.min.js" />
+</head>
+
+<body>
+	<div id="app" class="l-shell">
+		<script async type="module">
+			import { theme } from '/js/shell.min.js';
+
+			//restore style presets
+			theme.init();
+		</script>
+		<div id="bootloader">
+			<svg class="loading-progress">
+				<circle r="40%" cx="50%" cy="50%" />
+				<circle r="40%" cx="50%" cy="50%" />
+			</svg>
+			<div class="loading-progress-text"></div>
+		</div>
+
+
+	</div>
+	<div id="blazor-error-ui">
+		An unhandled error has occurred.
+		<a href="" class="reload">Reload</a>
+		<a class="dismiss">🗙</a>
+	</div>
+
+	<!--<script src="_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication/AuthenticationService.js"></script>-->
+	<script src="_framework/blazor.webassembly.js" autostart="false"></script>
+	<script type="module">
+        import { loader } from "/js/shell.min.js";
+        Blazor.start({
+			loadBootResource: function (type, name, defaultUri, integrity) {
+				return loader.fetch(type, name, defaultUri, integrity);
+            }
+        });
+	</script>
+	<script type="module" src="js/web-components.min.js"></script>
+	<script src="js/cognito-oidc-client.min.js"></script>
+</body>
+
+</html>

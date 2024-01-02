@@ -1,0 +1,40 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<AwsTargetFramework>net6.0</AwsTargetFramework>
+		<BlazorTargetFramework>net8.0</BlazorTargetFramework>
+		<PropsPath>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))</PropsPath>
+
+		<VersionPrefix>0.1.0</VersionPrefix>
+		<!--<VersionSuffix>alpha</VersionSuffix>-->
+		<VersionSuffix>build.0</VersionSuffix>
+		<VersionSuffix Condition="'$(VersionSuffix)'!='' AND '$(BuildNumber)' != ''">$(VersionSuffix)-$(BuildNumber)</VersionSuffix>
+
+		<Company>Tyts</Company>
+		<Authors>Tyts</Authors>
+		<Copyright>Copyright © Tyts $([System.DateTime]::Now.ToString(yyyy))</Copyright>
+		<PackageLicenseExpression>ELv2</PackageLicenseExpression>
+		<PackageOutputPath>c:\Work\My\.nuget.local\</PackageOutputPath>
+		
+		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+		<WarningsNotAsErrors>612,618</WarningsNotAsErrors>
+		<GenerateDocumentationFile>false</GenerateDocumentationFile>
+		<NoWarn>$(NoWarn);CS1591</NoWarn>
+		<DebugType>portable</DebugType>
+		<GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+
+
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		
+		<!-- Common NuGet properties-->
+
+		<!--This is used to generate symbol package for Source Link-->
+
+		<!-- This is used by GitHub Repository to find which repository should contain the package when updloaded -->
+
+	</PropertyGroup>
+</Project>

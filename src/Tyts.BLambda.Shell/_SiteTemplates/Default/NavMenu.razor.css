@@ -1,0 +1,111 @@
+
+.nav-menu {
+    grid-area: nav;
+    background-color: var(--fill-color);
+    /*display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: 
+    'sidebar-header'
+    'sidebar-nav'
+    'sidebar-footer';*/
+    /*min-width: var(--sidebar-width);*/
+    /*width: var(--sidebar-width);*/
+    overflow: hidden auto;
+    padding: 0 var(--one-dup);
+    z-index: 30;
+}
+
+::deep .search {
+    display: none;
+    margin: var(--one-dup) 0 var(--two-dup);
+}
+
+::deep .search::part(root) {
+    border: 0;
+}
+
+::deep fluent-accordion-item::part(heading) {
+    grid-template-columns: auto 0 auto auto;
+}
+
+::deep fluent-accordion-item::part(heading-content) {
+    display: none;
+}
+
+::deep fluent-accordion-item::part(button) {
+    margin: 0;
+    z-index: 1;
+}
+
+
+
+::deep fluent-accordion-item::part(start) {
+    padding-inline-start: var(--one-dup);
+}
+
+::deep fluent-accordion-item::part(icon) {
+    width: calc((var(--base-height-multiplier) + var(--density)));
+    margin: var(--one-dup);
+}
+
+::deep fluent-accordion-item::part(region) {
+    background: var(--neutral-layer-1);
+    padding: 2px;
+}
+
+::deep fluent-button,
+::deep fluent-anchor {
+    display: flex;
+}
+
+    ::deep fluent-button::part(content),
+    ::deep fluent-anchor::part(content) {
+        display: none;
+    }
+
+    ::deep fluent-button::part(control),
+    ::deep fluent-anchor::part(control) {
+        justify-content: start;
+    }
+
+    ::deep fluent-button::part(start),
+    ::deep fluent-anchor::part(start) {
+        margin-inline-end: 0;
+    }
+
+
+
+
+
+
+@media (min-width: 576px) {
+    ::deep .search {
+        display: revert;
+    }
+
+    ::deep fluent-accordion-item::part(heading) {
+        grid-template-columns: auto 1fr auto auto;
+    }
+
+    ::deep fluent-accordion-item::part(button) {
+        padding: revert;
+        margin: revert;
+        z-index: revert;
+    }
+
+    ::deep fluent-accordion-item::part(icon) {
+        width: calc((var(--base-height-multiplier) + var(--density)) * var(--one-dup));
+    }
+
+    ::deep fluent-accordion-item::part(heading-content),
+    ::deep fluent-button::part(content),
+    ::deep fluent-anchor::part(content) {
+        display:revert;
+    }
+
+    ::deep fluent-button::part(start),
+    ::deep fluent-anchor::part(start) {
+        margin-inline-end: 11px;
+    }
+}

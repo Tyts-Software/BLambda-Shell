@@ -1,0 +1,70 @@
+﻿@using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+@using Microsoft.Extensions.Options;
+@using System.Net;
+@inherits LayoutComponentBase
+
+<PageTitle>BLambda Welcome!</PageTitle>
+<HeadContent>
+    <!--<link href="css/flex-theme.min.css" rel="stylesheet" />-->
+
+</HeadContent>
+
+<main>
+    <ErrorBoundary @ref="errorBoundary">
+        <ChildContent>
+            @if (isLoggedOut)
+            {
+                <Goodby />
+            }
+            else
+            {
+                <Welcome>
+                    @Body
+                </Welcome>
+            }
+        </ChildContent>
+        <ErrorContent Context="ex">
+            <p class="error">@ex.Message</p>
+        </ErrorContent>
+    </ErrorBoundary>
+</main>
+
+@inject NavigationManager Navigation
+@inject IOptionsSnapshot<RemoteAuthenticationOptions<ApiAuthorizationProviderOptions>> Options
+
+@implements IDisposable
+@code{
+    ErrorBoundary? errorBoundary;
+    bool isLoggedOut = false;
+    string loggedOutPath = default!;
+
+    protected override void OnInitialized()
+    {
+        loggedOutPath = Options.Get(Microsoft.Extensions.Options.Options.DefaultName).AuthenticationPaths.LogOutSucceededPath;
+        isLoggedOut = CheckLoggedOut(Navigation.Uri);
+
+        Navigation.LocationChanged += LocationChanged;
+    }
+        
+    void LocationChanged(object? sender, LocationChangedEventArgs args)
+    {
+        var isLoggedOut = CheckLoggedOut(args.Location);
+        if (this.isLoggedOut != isLoggedOut)
+        {
+            this.isLoggedOut = isLoggedOut;
+            StateHasChanged();
+        }
+    }
+
+    protected override void OnParametersSet()
+    {
+        errorBoundary?.Recover();
+    }
+
+    bool CheckLoggedOut(string url) => url.Contains(loggedOutPath, StringComparison.OrdinalIgnoreCase);
+
+    void IDisposable.Dispose()
+    {
+        Navigation.LocationChanged -= LocationChanged;
+    }
+}

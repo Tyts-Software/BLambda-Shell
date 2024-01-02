@@ -1,0 +1,10 @@
+﻿footer {
+    grid-area: footer;
+    background-color: var(--fill-color);
+    overflow: hidden;
+    z-index: 30;
+}
+
+::deep .toolbar {
+    display: flex;
+}

@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\..\build\props\Common.props" />
+
+	<PropertyGroup>
+		<TargetFrameworks>$(AwsTargetFramework);$(BlazorTargetFramework)</TargetFrameworks>
+	</PropertyGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
+
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
+
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\blambda\src\Shared\Tyts.BLambda\Tyts.BLambda.csproj" />
+	</ItemGroup>
+
+</Project>

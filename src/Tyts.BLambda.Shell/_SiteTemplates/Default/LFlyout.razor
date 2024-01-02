@@ -1,0 +1,72 @@
+﻿
+@using Tyts.BLambda.Blazor.Theme
+@using Tyts.BLambda.Blazor.Components;
+
+@implements IDisposable
+@inject IFlyoutService Flyout
+
+<aside class="l-flyout @opened">
+    <header class="stealth">
+        <h4>@title</h4>
+        <FluentButton Appearance="Appearance.Stealth" @onclick="Close">
+            <FluentIcon Value="@(new Icons.Regular.Size28.Dismiss())" />
+        </FluentButton>        
+    </header>
+
+    <p class="main">
+        
+        <fieldset>
+            <legend>Color settings</legend>
+
+
+            <ThemeSwitch></ThemeSwitch>
+            <div>
+               
+            </div>
+        </fieldset>
+
+
+        @*@(new string('*', 500))
+        @(String.Join(Environment.NewLine, Enumerable.Repeat(LoremIpsum, 1)))*@
+
+    </p>
+</aside>
+
+@code {
+    const string LoremIpsum = @"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+
+    string title = "Shell Setup";
+    string opened = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        opened = GetOpenedCss(Flyout.LeftSidebar.IsOpened);
+
+        Flyout.LeftSidebar.Toggled += LeftSidebar_Toggle;
+    }
+
+    string GetOpenedCss(bool open)
+    {
+        return open ? nameof(opened) : string.Empty;
+    }
+
+    void Close()
+    {
+        Flyout.LeftSidebar.Toggle(false);
+    }
+
+    void LeftSidebar_Toggle(bool open)
+    {
+        var opened = GetOpenedCss(open);
+        if (this.opened != opened)
+        {
+            this.opened = opened;
+            StateHasChanged();
+        }
+    }
+
+    void IDisposable.Dispose()
+    {
+        Flyout.LeftSidebar.Toggled -= LeftSidebar_Toggle;
+    }
+}

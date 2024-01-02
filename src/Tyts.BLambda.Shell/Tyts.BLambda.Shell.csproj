@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+	<Import Project="..\..\build\props\Blazor.props" />
+	<PropertyGroup>
+	  <RunAnalyzersDuringLiveAnalysis>False</RunAnalyzersDuringLiveAnalysis>
+	</PropertyGroup>
+	<ItemGroup>
+	  <Compile Remove="Domain\Module\ModulService.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Remove="wwwroot\appsettings.Development.secrets.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="_Assets\Scripts\Lib\web-components.min.js" />
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Include="wwwroot\appsettings.Development.secrets.json">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <Folder Include="Domain\Module\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.0" PrivateAssets="all" />
+	</ItemGroup>
+</Project>

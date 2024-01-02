@@ -1,0 +1,45 @@
+﻿.l-flyout {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: var(--l-flyout-width);
+    position: fixed;
+    overflow: hidden;
+    border: calc(var(--stroke-width) * 1px) solid transparent;
+    box-shadow: var(--elevation-shadow-dialog);
+    background-color: var(--neutral-layer-floating);
+    transform: translateX(calc(-1 * var(--l-flyout-width) - var(--sidebar-width)));
+    transition: all .6s ease-in-out;
+    z-index: 20;
+}
+
+    .l-flyout.opened {
+        transform: translateX(var(--sidebar-width));
+    }
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: calc(var(--design-unit) * 2 * 1px);
+}
+
+.main {
+    padding: 1em;
+    overflow: hidden auto;
+}
+
+
+::deep fieldset > * {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+::deep fluent-switch::part(switch) {
+    margin-left: auto;
+}
+
+@media only screen and (min-width: 992px) {
+}

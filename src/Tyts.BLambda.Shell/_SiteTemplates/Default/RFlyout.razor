@@ -1,0 +1,55 @@
+﻿@using Tyts.BLambda.Blazor.Components;
+
+@implements IDisposable
+@inject IFlyoutService Flyout
+
+<aside class="flyout @opened">
+    <header class="stealth">
+        <FluentButton Appearance="Appearance.Stealth" @onclick="Close">
+            <FluentIcon Value="@(new Icons.Regular.Size28.Dismiss())" />
+        </FluentButton>
+        <h4>@title</h4>
+    </header>
+
+    <p class="main">
+   
+
+    </p>
+</aside>
+
+@code {
+    string title = "Whatevere Form";
+    string opened = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        opened = GetOpenedCss(Flyout.RightSidebar.IsOpened);
+
+        Flyout.RightSidebar.Toggled += RightSidebar_Toggled;
+    }
+
+    string GetOpenedCss(bool open)
+    {
+        return open ? nameof(opened) : string.Empty;
+    }
+
+    void Close()
+    {
+        Flyout.RightSidebar.Toggle(false);
+    }
+
+    void RightSidebar_Toggled(bool open)
+    {
+        var opened = GetOpenedCss(open);
+        if (this.opened != opened)
+        {
+            this.opened = opened;
+            StateHasChanged();
+        }
+    }
+
+    void IDisposable.Dispose()
+    {
+        Flyout.RightSidebar.Toggled -= RightSidebar_Toggled;
+    }
+}

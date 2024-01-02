@@ -1,0 +1,37 @@
+﻿header { 
+    grid-area: header;
+    min-height: var(--logo-height);
+    background-color: var(--fill-color);
+    overflow: hidden;
+    padding-right:var(--one-dup);
+    z-index: 32;
+}
+
+/*logo*/
+::deep figure {
+    max-width: var(--logo-height);
+    max-height: var(--logo-height);
+    margin: 0;
+    padding-left: var(--one-dup);
+}
+    
+::deep svg > g {
+    transform: scale(0.83);
+}
+
+/*auth*/
+::deep .toolbar {
+    width: calc(var(--sidebar-width) - var(--logo-width)- var(--one-dup));
+    display: flex;
+    justify-content: flex-end;
+    margin-left: var(--one-dup);
+    padding: var(--half-dup) 0 var(--half-dup) 0;
+}
+
+ /*not auth*/
+::deep h1 {
+    margin: 0;
+    padding-left: var(--one-dup);
+    font-size: var(--type-ramp-plus-3-font-size);
+    line-height: var(--type-ramp-plus-1-line-height);
+}
