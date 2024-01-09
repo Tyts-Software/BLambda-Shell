@@ -1,38 +1,41 @@
 ﻿@using Tyts.BLambda.Blazor.Components;
+@using Tyts.BLambda.Shell.Settings;
 @inject IFlyoutService Flayout
 <footer>    
     <FluentDivider></FluentDivider>
 
     <div class="toolbar">
 
-        <FluentButton Appearance="Appearance.Stealth" @onclick="()=>Flayout.LeftSidebar.Toggle()">
+        <FluentButton Appearance="Appearance.Stealth" @onclick="()=>Flayout.LeftSidebar.Open(null, null)">
             <FluentIcon Value="@(new Icons.Regular.Size24.MoreHorizontal())" />
         </FluentButton>
 
         <FluentDivider Class="mr-auto" Orientation="Orientation.Vertical"></FluentDivider>
 
 
+        <FluentButton Appearance="Appearance.Stealth" @onclick="@(()=> Flayout.LeftSidebar.Open("Settings", typeof(Settings)))">
+            <FluentIcon Value="@(new Icons.Regular.Size24.Settings())" />
+        </FluentButton>
+
+        <FluentButton Appearance="Appearance.Stealth" @onclick="()=>Flayout.LeftSidebar.Toggle()">
+            <FluentIcon Value="@(new Icons.Regular.Size24.LayoutColumnOneThirdLeft())" />
+        </FluentButton>
+        
+        @*<FluentTooltip Anchor="qcp1" Position="TooltipPosition.Top">Quick command placeholder</FluentTooltip>*@        
+
+        
+
+        <FluentButton Appearance="Appearance.Stealth">
+            <FluentIcon Value="@(new Icons.Regular.Size24.BorderNone())" />
+        </FluentButton>
+
+        <FluentButton Appearance="Appearance.Stealth">
+            <FluentIcon Value="@(new Icons.Regular.Size24.BorderNone())" />
+        </FluentButton>
+
         <FluentButton id="qcp1" Appearance="Appearance.Stealth" @onclick="() => Flayout.RightSidebar.Toggle()">
-            <FluentIcon Value="@(new Icons.Regular.Size24.BorderNone())" />
+            <FluentIcon Value="@(new Icons.Regular.Size24.LayoutColumnOneThirdRight())" />
         </FluentButton>
-        @*<FluentTooltip Anchor="qcp1" Position="TooltipPosition.Top">Quick command placeholder</FluentTooltip>*@
-
-        <FluentButton Appearance="Appearance.Stealth">
-            <FluentIcon Value="@(new Icons.Regular.Size24.BorderNone())" />
-        </FluentButton>
-
-        <FluentButton Appearance="Appearance.Stealth">
-            <FluentIcon Value="@(new Icons.Regular.Size24.BorderNone())" />
-        </FluentButton>
-
-        <FluentButton Appearance="Appearance.Stealth">
-            <FluentIcon Value="@(new Icons.Regular.Size24.BorderNone())" />
-        </FluentButton>
-
-        <FluentButton Appearance="Appearance.Stealth">
-            <FluentIcon Value="@(new Icons.Regular.Size24.BorderNone())" />
-        </FluentButton>
-
     </div>
 
 

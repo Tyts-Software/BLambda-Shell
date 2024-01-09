@@ -21,7 +21,7 @@ builder.Services.AddSingleton(sp => http);
 
 builder.Services.AddCascadingAuthenticationState();
 
-builder.Services.AddFluentUIComponents();
+//builder.Services.AddFluentUIComponents();
 await builder.AddShell();
 
 var app = builder.Build();

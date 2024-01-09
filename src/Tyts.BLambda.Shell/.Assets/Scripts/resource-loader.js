@@ -16,7 +16,10 @@ const sb = {
     },
 
     show: () => sb.el.classList.remove('none'),
-    hide: () => sb.el.classList.add('none')
+    hide: () => {
+        sb.el.innerText = "";
+        sb.el.classList.add('none');
+    }
 }
 
 
@@ -34,7 +37,7 @@ const loader = {
     },
 
     fetch: function (type, filename, defaultUri, integrity) {
-        sb.update(`Downloading: ${filename}`);
+        sb.update(`Loading: ${filename}`);
 
         if (this.logLoaded) {
             resourceRequestsLog.push([type, filename, defaultUri, integrity]);            
@@ -53,7 +56,7 @@ const loader = {
         resourcesToLoad.push(fetchResources);
 
         fetchResources.then((r) => {
-            sb.update(`Downloading: ${++loadedCount}/${resourcesToLoad.length}: ${filename}`);
+            sb.update(`Loading: ${++loadedCount}/${resourcesToLoad.length}: ${filename}`);
         }).then(() => {
             if (loadedCount == resourcesToLoad.length) {
                 sb.hide();

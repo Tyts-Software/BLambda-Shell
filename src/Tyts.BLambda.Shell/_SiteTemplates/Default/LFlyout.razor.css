@@ -26,20 +26,9 @@ header {
 
 .main {
     padding: 1em;
-    overflow: hidden auto;
+    /*overflow: hidden auto;*/
 }
 
-
-::deep fieldset > * {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 5px;
-}
-
-::deep fluent-switch::part(switch) {
-    margin-left: auto;
-}
 
 @media only screen and (min-width: 992px) {
 }

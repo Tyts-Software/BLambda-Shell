@@ -1,9 +1,10 @@
 ﻿@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using Microsoft.Extensions.Options;
 
-<header class="flex row nowrap center" role="banner">
+<header class="flex nowrap center" role="banner">
     <Logo/>
-    <FlexBox Orientation="Orientation.Vertical" HorizontalGap="0" VerticalGap="0"
+    <FlexBox Class="box"
+             Orientation="Orientation.Vertical" HorizontalGap="0" VerticalGap="0"
              HorizontalAlignment="FlexBoxHorizontalAlignment.Right"
              VerticalAlignment="FlexBoxVerticalAlignment.Center"
              >
@@ -15,29 +16,37 @@
                     <FluentButton Appearance="Appearance.Stealth" @onclick="SignOut" title="Sign out">
                         <FluentIcon Value="@(new Icons.Regular.Size20.SignOut())" />
                     </FluentButton>
-                </div>
+                </div>               
                
-                <MenuButton Text="@(context.User.Identity?.Name)" Width="175">
-                    <FluentMenuItem onclick="@(() => Navigation.NavigateTo("/account/info"))">
-                        Account Info
-                    </FluentMenuItem>
-                    <FluentDivider />
-
-
-                    @if (this.IsDebug())
-                    {
-                        <FluentMenuItem onclick="@(() => Navigation.NavigateTo("/authentication/identity"))">
-                            Identity
+                <MenuButton Id="accont-button" Text="@(context.User.Identity?.Name)" Width="175px">  
+                                        
+                        <FluentMenuItem OnClick="@((e) => {  Navigation.NavigateTo("/account/info"); })" Checked="true">
+                            Account Info
+                        </FluentMenuItem>
+                        <FluentMenuItem>
+                            <button onclick="@(() => logger.LogInformation("QQQ"))">Qqq</button>
+                        </FluentMenuItem>
+                        <FluentMenuItem OnClick="OnClickHandlerAsync">
+                            Kkk
                         </FluentMenuItem>
                         <FluentDivider />
-                    }
 
 
-                    <FluentMenuItem @onclick="SignOut">
-                        Sign out
-                    </FluentMenuItem>
+                        @if (this.IsDebug())
+                        {
+                            <FluentMenuItem OnClick="@((e) => Navigation.NavigateTo("/authentication/identity"))">
+                                Identity
+                            </FluentMenuItem>
+                            <FluentDivider />
+                        }
+
+
+                        <FluentMenuItem OnClick="SignOut">
+                            Sign out
+                        </FluentMenuItem>
+                        
+                   
                 </MenuButton>
-
 
 
             </Authorized>
@@ -52,9 +61,15 @@
 
 @inject NavigationManager Navigation
 @inject IOptionsSnapshot<RemoteAuthenticationOptions<ApiAuthorizationProviderOptions>> Options
+@inject ILogger<Header> logger;
 
 @code {
     
+    protected async Task OnClickHandlerAsync()
+    {
+        logger.LogInformation("QQQ");
+    }
+
     void SignOut()
     {       
         var logoutPath = Options.Get(Microsoft.Extensions.Options.Options.DefaultName).AuthenticationPaths.LogOutPath;

@@ -9,7 +9,7 @@
 @using Tyts.BLambda.Blazor.Theme;
 @using Tyts.BLambda.Shell.Authentication;
 
-
+<FluentDesignTheme StorageName="theme" />
 <Router AppAssembly="@typeof(App).Assembly" AdditionalAssemblies="@assemblies">
     <Found Context="routeData">
         <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@Template.Current.GetLayout(isAuthenticated)">
