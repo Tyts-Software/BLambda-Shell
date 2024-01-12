@@ -8,14 +8,9 @@
 </HeadContent>
 
 <main class="l-shell--main">
-    <ErrorBoundary @ref="errorBoundary">
-        <ChildContent>
-            @Body
-        </ChildContent>
-        <ErrorContent Context="ex">
-            <p class="error">@ex.Message</p>
-        </ErrorContent>
-    </ErrorBoundary>
+    <CustomErrorBoundary @ref="errorBoundary">
+        @Body
+    </CustomErrorBoundary>
 </main>
 <Header />
 <NavMenu />

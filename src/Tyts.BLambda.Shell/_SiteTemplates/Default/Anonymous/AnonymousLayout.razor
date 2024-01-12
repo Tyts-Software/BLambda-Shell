@@ -10,23 +10,18 @@
 </HeadContent>
 
 <main>
-    <ErrorBoundary @ref="errorBoundary">
-        <ChildContent>
-            @if (isLoggedOut)
-            {
-                <Goodby />
-            }
-            else
-            {
-                <Welcome>
-                    @Body
-                </Welcome>
-            }
-        </ChildContent>
-        <ErrorContent Context="ex">
-            <p class="error">@ex.Message</p>
-        </ErrorContent>
-    </ErrorBoundary>
+    <CustomErrorBoundary @ref="errorBoundary">
+        @if (isLoggedOut)
+        {
+            <Goodby />
+        }
+        else
+        {
+            <Welcome>
+                @Body
+            </Welcome>
+        }
+    </CustomErrorBoundary>
 </main>
 
 @inject NavigationManager Navigation
@@ -46,6 +41,11 @@
         Navigation.LocationChanged += LocationChanged;
     }
         
+    protected override void OnParametersSet()
+    {
+        errorBoundary?.Recover();
+    }
+
     void LocationChanged(object? sender, LocationChangedEventArgs args)
     {
         var isLoggedOut = CheckLoggedOut(args.Location);
@@ -54,11 +54,6 @@
             this.isLoggedOut = isLoggedOut;
             StateHasChanged();
         }
-    }
-
-    protected override void OnParametersSet()
-    {
-        errorBoundary?.Recover();
     }
 
     bool CheckLoggedOut(string url) => url.Contains(loggedOutPath, StringComparison.OrdinalIgnoreCase);
