@@ -1,6 +1,6 @@
 ﻿using Tyts.BLambda.Blazor.Application.Template;
 using Tyts.BLambda.Shell._SiteTemplates.Default;
-using Tyts.BLambda.Shell._SiteTemplates.Default.Anonymous;
+using Tyts.BLambda.Shell._SiteTemplates.Default.Public;
 
 namespace Tyts.BLambda.Shell._SiteTemplates;
 
