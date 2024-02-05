@@ -8,3 +8,9 @@
 ::deep .toolbar {
     display: flex;
 }
+
+::deep .toolbar-right {
+    padding: 0;
+    width: 32px;
+    --toolbar-item-gap: 0;
+}

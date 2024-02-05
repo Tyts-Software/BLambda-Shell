@@ -11,7 +11,7 @@
 ::deep figure {
     /* max-width: var(--logo-width);
     max-height: var(--logo-height);*/
-    margin: 0;
+    margin: var(--one-dup) 0 0 0;
     padding-left: var(--one-dup);
     filter: saturate(0) grayscale(1) brightness(.7) contrast(1000%) invert(var(--base-layer-luminance));
 }
@@ -27,37 +27,24 @@
 
 
 /* next to the logo */
-::deep .box {
-    display: none;
+/*auth*/
+::deep .toolbar {
+    width: calc(var(--sidebar-width) - var(--logo-width)- var(--one-dup));
+    display: flex;
+    justify-content: flex-end;
+    margin-left: var(--one-dup);
+    padding: var(--half-dup) 0 var(--half-dup) 0;
 }
 
-/* size-s and UP */
-@media (min-width: 576px) {    
-
-    /* next to the logo */
-    ::deep .box {
-        display: initial;
-    }
-
-    /*auth*/
-    ::deep .toolbar {
-        width: calc(var(--sidebar-width) - var(--logo-width)- var(--one-dup));
-        display: flex;
-        justify-content: flex-end;
-        margin-left: var(--one-dup);
-        padding: var(--half-dup) 0 var(--half-dup) 0;
-    }
-
-    ::deep #accont-button > .button {
-        font-weight:bolder;
-    }
+::deep .account-button > .button {
+    font-weight:bolder;
+}
 
 
-     /*not auth*/
-    ::deep h1 {
-        margin: 0;
-        padding-left: var(--one-dup);
-        font-size: var(--type-ramp-plus-3-font-size);
-        line-height: var(--type-ramp-plus-1-line-height);
-    }    
+ /*not auth*/
+::deep h1 {
+    margin: 0;
+    padding-left: var(--one-dup);
+    font-size: var(--type-ramp-plus-3-font-size);
+    line-height: var(--type-ramp-plus-1-line-height);
 }

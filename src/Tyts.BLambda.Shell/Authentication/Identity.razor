@@ -26,8 +26,8 @@
     }
 
     <h2>Access token expires</h2>
+    <p id="access-token-expires">at @accessToken.Expires.ToLocalTime()</p>
     <p>Current time: <span id="current-time">@DateTimeOffset.Now</span></p>
-    <p id="access-token-expires">@accessToken.Expires.ToLocalTime()</p>
 
     <h2>Access token granted scopes (as reported by the API)</h2>
     <ul>

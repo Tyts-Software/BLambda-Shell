@@ -6,11 +6,13 @@
 
 :root {
     --min-width: 280px;
+    --sidebar-expanded-width: 240px;
+    --sidebar-collapsed-width: 60px;
 
-    /** 60px **/
-    --logo-height: 60px;
-    --logo-width: 60px;
-    --sidebar-width: var(--logo-width);
+    /** collapsed 60px **/
+    --logo-height: var(--sidebar-collapsed-width);
+    --logo-width: var(--sidebar-collapsed-width);
+    --sidebar-width: var(--sidebar-collapsed-width);
     --l-flyout-width: 300px;
     --r-flyout-width: 100vw;
 
@@ -21,11 +23,12 @@
 
 
     /* but it diesn't work for media now */
-    --size-s: 576px; /* and up - landscape phones*/
-    --size-m: 768px; /* and up - tablets*/
-    --size-l: 992px; /* and up - desktops*/
-    --size-xl: 1200px; /* and up - large desktops*/
-    --size-xxl: 1400px; /* and up - larger desktops*/
+    --size-xs: 600px; /* < - landscape phones*/
+    --size-s: 960px; /* < - landscape phones*/
+    --size-m: 1280px; /* < - tablets*/
+    --size-l: 1920px; /* < - desktops*/
+    --size-xl: 2560px; /* < - large desktops*/
+    --size-xxl: 2560px; /* >= - larger desktops*/
 }
 
 
@@ -64,6 +67,11 @@ body {
     left: 0;
     right: 0;
     bottom: 0;*/
+}
+
+
+.l-shell {
+    /*transition: width .6s ease-in-out;*/
 }
 
 #statusBar{

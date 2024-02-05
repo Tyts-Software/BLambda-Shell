@@ -11,7 +11,9 @@
 @using System.Security.Claims
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 
-@inject CognitoUserPoolAccount CognitoUserPoolAccount
+@* @inject CognitoUserPoolAccount CognitoUserPoolAccount *@
+
+@inject RemoteUserAccount CognitoUserPoolAccount
 
 @code {
     [CascadingParameter] Task<AuthenticationState> AuthenticationState { get; set; } = default!;
@@ -21,6 +23,6 @@
     protected override async Task OnInitializedAsync()
     {
         user = (await AuthenticationState).User;
-        profile = CognitoUserPoolAccount ?? new CognitoUserPoolAccount();
+        profile = (CognitoUserPoolAccount as CognitoUserPoolAccount) ?? new CognitoUserPoolAccount();
     }
 }

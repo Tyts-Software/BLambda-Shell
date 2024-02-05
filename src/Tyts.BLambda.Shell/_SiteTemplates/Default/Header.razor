@@ -1,9 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
-@using Microsoft.Extensions.Options;
+@using Microsoft.Extensions.Options
 
 <header class="flex nowrap center" role="banner">
     <Logo/>
-    <FlexBox Class="box"
+    <FlexBox Class="box" hidden="@collapsed"
              Orientation="Orientation.Vertical" HorizontalGap="0" VerticalGap="0"
              HorizontalAlignment="FlexBoxHorizontalAlignment.Right"
              VerticalAlignment="FlexBoxVerticalAlignment.Center"
@@ -18,34 +18,15 @@
                     </FluentButton>
                 </div>               
                
-                <MenuButton Id="accont-button" Text="@(context.User.Identity?.Name)" Width="175px">  
-                                        
-                        <FluentMenuItem OnClick="@((e) => {  Navigation.NavigateTo("/account/info"); })" Checked="true">
-                            Account Info
-                        </FluentMenuItem>
-                        <FluentMenuItem>
-                            <button onclick="@(() => logger.LogInformation("QQQ"))">Qqq</button>
-                        </FluentMenuItem>
-                        <FluentMenuItem OnClick="OnClickHandlerAsync">
-                            Kkk
-                        </FluentMenuItem>
-                        <FluentDivider />
+                <MenuButton Class="account-button" Text="@(context.User.Identity?.Name)" Width="175px">
+                    <FluentMenuItem OnClick="@((e) => Navigation.NavigateTo("/authentication/identity"))">
+                        Account Info
+                    </FluentMenuItem>
+                    <FluentDivider />
 
-
-                        @if (this.IsDebug())
-                        {
-                            <FluentMenuItem OnClick="@((e) => Navigation.NavigateTo("/authentication/identity"))">
-                                Identity
-                            </FluentMenuItem>
-                            <FluentDivider />
-                        }
-
-
-                        <FluentMenuItem OnClick="SignOut">
-                            Sign out
-                        </FluentMenuItem>
-                        
-                   
+                    <FluentMenuItem OnClick="SignOut">
+                        Sign out
+                    </FluentMenuItem>
                 </MenuButton>
 
 
@@ -59,23 +40,35 @@
     </FlexBox>
 </header>
 
+@implements IDisposable
+
+@inject INavMenuService NavMenu
 @inject NavigationManager Navigation
 @inject IOptionsSnapshot<RemoteAuthenticationOptions<ApiAuthorizationProviderOptions>> Options
-@inject ILogger<Header> logger;
+@inject ILogger<Header> logger
 
 @code {
-    
-    protected async Task OnClickHandlerAsync()
+    bool collapsed => !NavMenu.IsExpanded;
+
+    protected override void OnInitialized()
     {
-        logger.LogInformation("QQQ");
+        NavMenu.Expanded += NavMenu_Toggled;
+    }
+
+    async Task NavMenu_Toggled(bool open)
+    {
+        await InvokeAsync(StateHasChanged);
     }
 
     void SignOut()
-    {       
+    {   
         var logoutPath = Options.Get(Microsoft.Extensions.Options.Options.DefaultName).AuthenticationPaths.LogOutPath;
 
-        ////! it seems do not clear localStorage
-        //Navigation.NavigateTo(logoutPath, replace: true);
         Navigation.NavigateToLogout(logoutPath);
+    }
+
+    void IDisposable.Dispose()
+    {
+        NavMenu.Expanded -= NavMenu_Toggled;
     }
 }

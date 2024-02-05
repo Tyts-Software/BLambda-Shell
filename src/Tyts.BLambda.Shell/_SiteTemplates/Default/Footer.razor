@@ -1,47 +1,68 @@
 ﻿@using Tyts.BLambda.Blazor.Components;
 @using Tyts.BLambda.Shell.Settings;
-@inject IFlyoutService Flayout
+
 <footer>    
     <FluentDivider></FluentDivider>
-
+    
     <div class="toolbar">
 
         <FluentButton Appearance="Appearance.Stealth" @onclick="()=>Flayout.LeftSidebar.Open(null, null)">
             <FluentIcon Value="@(new Icons.Regular.Size24.MoreHorizontal())" />
         </FluentButton>
 
-        <FluentDivider Class="mr-auto" Orientation="Orientation.Vertical"></FluentDivider>
+        <FluentDivider Class="mr-auto" Orientation="Orientation.Vertical" hidden="@collapsed"></FluentDivider>
+
+        <Toolbar Collapsed="@collapsed">
+            <FluentButton slot="label" Appearance="Appearance.Stealth" @onclick="@(()=> Flayout.LeftSidebar.Open("Settings", typeof(Settings)))">
+                <FluentIcon Value="@(new Icons.Regular.Size24.Settings())" />
+            </FluentButton>
+
+            <FluentButton Appearance="Appearance.Stealth" @onclick="()=>Flayout.LeftSidebar.Toggle()">
+                <FluentIcon Value="@(new Icons.Regular.Size24.LayoutColumnOneThirdLeft())" />
+            </FluentButton>
+
+            @*<FluentTooltip Anchor="qcp1" Position="TooltipPosition.Top">Quick command placeholder</FluentTooltip>*@
 
 
-        <FluentButton Appearance="Appearance.Stealth" @onclick="@(()=> Flayout.LeftSidebar.Open("Settings", typeof(Settings)))">
-            <FluentIcon Value="@(new Icons.Regular.Size24.Settings())" />
-        </FluentButton>
 
-        <FluentButton Appearance="Appearance.Stealth" @onclick="()=>Flayout.LeftSidebar.Toggle()">
-            <FluentIcon Value="@(new Icons.Regular.Size24.LayoutColumnOneThirdLeft())" />
-        </FluentButton>
+            <FluentButton Appearance="Appearance.Stealth">
+                <FluentIcon Value="@(new Icons.Regular.Size24.BorderNone())" />
+            </FluentButton>
+
+            <FluentButton Appearance="Appearance.Stealth">
+                <FluentIcon Value="@(new Icons.Regular.Size24.BorderNone())" />
+            </FluentButton>
+
+            <FluentButton Appearance="Appearance.Stealth" @onclick="() => Flayout.RightSidebar.Toggle()">
+                <FluentIcon Value="@(new Icons.Regular.Size24.LayoutColumnOneThirdRight())" />
+            </FluentButton>
+        </Toolbar>
         
-        @*<FluentTooltip Anchor="qcp1" Position="TooltipPosition.Top">Quick command placeholder</FluentTooltip>*@        
-
-        
-
-        <FluentButton Appearance="Appearance.Stealth">
-            <FluentIcon Value="@(new Icons.Regular.Size24.BorderNone())" />
-        </FluentButton>
-
-        <FluentButton Appearance="Appearance.Stealth">
-            <FluentIcon Value="@(new Icons.Regular.Size24.BorderNone())" />
-        </FluentButton>
-
-        <FluentButton id="qcp1" Appearance="Appearance.Stealth" @onclick="() => Flayout.RightSidebar.Toggle()">
-            <FluentIcon Value="@(new Icons.Regular.Size24.LayoutColumnOneThirdRight())" />
-        </FluentButton>
     </div>
-
-
     
 </footer>
 
+
+@implements IDisposable
+
+@inject IFlyoutService Flayout
+@inject INavMenuService NavMenu
+
 @code {
-    
+    bool collapsed => !NavMenu.IsExpanded;
+
+    protected override void OnInitialized()
+    {
+        NavMenu.Expanded += NavMenu_Toggled;
+    }
+
+    async Task NavMenu_Toggled(bool open)
+    {
+        await InvokeAsync(StateHasChanged);
+    }
+
+    void IDisposable.Dispose()
+    {
+        NavMenu.Expanded -= NavMenu_Toggled;
+    }
 }

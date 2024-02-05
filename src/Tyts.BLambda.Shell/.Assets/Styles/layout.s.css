@@ -1,6 +1,0 @@
-@media (min-width: 576px) {
-    :root {
-        --sidebar-width: calc(var(--logo-width) * 4);
-        --r-flyout-width: 50vw;
-    }
-}

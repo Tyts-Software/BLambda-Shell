@@ -1,5 +1,6 @@
 ﻿.flyout {
     display: flex;
+    visibility:hidden;
     flex-direction: column;
     height: 100%;
     width: fit-content;
@@ -16,6 +17,7 @@
 }
 
     .flyout.opened {
+        visibility:visible;
         transform: translateX(calc(100vw - 100%));
     }
 

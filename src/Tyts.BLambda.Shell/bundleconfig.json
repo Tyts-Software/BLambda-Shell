@@ -4,8 +4,7 @@
         "inputFiles": [
             ".Assets/Styles/reboot.css",
             ".Assets/Styles/utilities.css",
-            ".Assets/Styles/layout.css",
-            ".Assets/Styles/layout.s.css"
+            ".Assets/Styles/layout.css"
         ],
         "minify": {
             "enabled": true,
