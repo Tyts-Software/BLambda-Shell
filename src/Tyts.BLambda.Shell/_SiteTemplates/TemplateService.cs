@@ -8,7 +8,7 @@ internal class TemplateService : ITemplateService
 {
     private readonly List<TemplateDescriptor> templates = new()
     {
-        new ("Default", typeof(DefaultLayout), typeof(AnonymousLayout))
+        new ("Default", typeof(MainLayout), typeof(AnonymousLayout))
     };
 
     public TemplateDescriptor Current => templates.First();

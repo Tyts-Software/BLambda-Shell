@@ -15,13 +15,6 @@
 		<Content Remove="wwwroot\appsettings.secrets.json" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<Folder Include="Domain\Module\" />
-	</ItemGroup>
-	<ItemGroup>
-		<Compile Remove="Domain\Module\ModulService.cs" />
-	</ItemGroup>
-
 
 
 	<ItemGroup>

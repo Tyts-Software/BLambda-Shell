@@ -1,10 +1,8 @@
 [
     {
-        "outputFileName": "wwwroot/css/shell-layout.min.css",
+        "outputFileName": "wwwroot/css/default.template.min.css",
         "inputFiles": [
-            ".Assets/Styles/reboot.css",
-            ".Assets/Styles/utilities.css",
-            ".Assets/Styles/layout.css"
+            "_SiteTemplates/Default/.root.css"
         ],
         "minify": {
             "enabled": true,
@@ -17,7 +15,6 @@
         "inputFiles": [
             ".Assets/Scripts/util.js",
             ".Assets/Scripts/document.js",
-            ".Assets/Scripts/resource-loader.js",
             ".Assets/Scripts/Lib/Pako/pako.min.js"
         ],
         "minify": {

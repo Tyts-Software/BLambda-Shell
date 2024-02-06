@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace Tyts.BLambda.Shell._SiteTemplates.Default;
 
-public partial class DefaultLayout : LayoutComponentBase
+public partial class MainLayout : LayoutComponentBase
 {
     private ErrorBoundary? errorBoundary;
 

@@ -1,7 +1,7 @@
 ﻿// just an example of JavaScript initializers
 // https://learn.microsoft.com/en-us/aspnet/core/blazor/fundamentals/startup?view=aspnetcore-8.0#javascript-initializers
 
-import { loader } from "/js/shell.min.js";
+import { loader } from "/_content/Tyts.BLambda.Blazor.Wasm/js/bl.m.min.js";
 
 
 export function beforeWebAssemblyStart(options, extensions) {

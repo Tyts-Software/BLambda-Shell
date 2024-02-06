@@ -28,47 +28,55 @@
             <FluentBadge Appearance="Appearance.Accent" slot="end"
                          OnClick="@(()=> Logger.LogInformation("Badge clicked"))" hidden="@(!expanded)">New</FluentBadge>
 
-
             @if (this.IsDebug())
             {
-                <FluentButton OnClick="@(() => Console.Write("ATTENTION: Debugging is here"))" Appearance="Appearance.Stealth">
+                <FluentButton OnClick="@(() => Logger.LogDebug("ATTENTION: Debugging is here"))" Appearance="Appearance.Stealth">
                     Debug Only
                     <FluentIcon Slot="start" Value="@(new Icons.Regular.Size24.Bug())" />
                 </FluentButton>
             }
 
-            <FluentAnchor Href="" Appearance="Appearance.Stealth">
-                Go to Unauthorized
-                <FluentIcon Slot="start" Value="@(new Icons.Regular.Size24.CalendarError())" />
-            </FluentAnchor>
+            <AuthorizeView>
+                <NotAuthorized>
+                    <FluentAnchor Href="" Appearance="Appearance.Stealth">
+                        Go to Authorized
+                        <FluentIcon Slot="start" Value="@(new Icons.Regular.Size24.CalendarError())" />
+                    </FluentAnchor>
+                </NotAuthorized>
 
-            <AuthorizeView Roles="@Roles.ADMIN" Context="innerContext">
-                <FluentAnchor Href="" Appearance="Appearance.Stealth">
-                    Admin Menu Item
-                    <FluentIcon Slot="start" Value="@(new Icons.Regular.Size24.CalendarCheckmark())" />
-                    <FluentBadge slot="end" Appearance="Appearance.Neutral" hidden="@(!expanded)">
-                        @Roles.ADMIN
-                    </FluentBadge>
-                </FluentAnchor>
+                <Authorized>
+                        <FluentAnchor Href="" Appearance="Appearance.Stealth">
+                            @context.User.Identity?.Name!
+                            <FluentIcon Slot="start" Value="@(new Icons.Regular.Size24.Accessibility())" />
+                        </FluentAnchor>
+
+                        <AuthorizeView Roles="@Roles.ADMIN" Context="innerContext">
+                            <FluentAnchor Href="" Appearance="Appearance.Stealth">
+                                Admin Menu Item
+                                <FluentIcon Slot="start" Value="@(new Icons.Regular.Size24.CalendarCheckmark())" />
+                                <FluentBadge slot="end" Appearance="Appearance.Neutral" hidden="@(!expanded)">
+                                    @Roles.ADMIN
+                                </FluentBadge>
+                            </FluentAnchor>
+                        </AuthorizeView>
+
+                        <AuthorizeView Roles="@Roles.EDITOR" Context="innerContext">
+                            <FluentAnchor Href="" Appearance="Appearance.Stealth">
+                                Editor Menu Item
+                                <FluentIcon Slot="start" Value="@(new Icons.Regular.Size24.CalendarEdit())" />
+                                <FluentBadge slot="end" Appearance="Appearance.Neutral" hidden="@(!expanded)">
+                                    @Roles.EDITOR
+                                </FluentBadge>
+                            </FluentAnchor>
+                        </AuthorizeView>
+
+                        <AuthorizeView Roles="NOT_IN_ROLE, OR_ANOTHER_ROLE" Context="innerContext">
+                            <FluentAnchor Href="" Appearance="Appearance.Stealth">
+                                SHOULD be hidden for user: @innerContext.User
+                            </FluentAnchor>
+                        </AuthorizeView>
+                 </Authorized>
             </AuthorizeView>
-
-            <AuthorizeView Roles="@Roles.EDITOR">
-                <FluentAnchor Href="" Appearance="Appearance.Stealth">
-                    Editor Menu Item
-                    <FluentIcon Slot="start" Value="@(new Icons.Regular.Size24.CalendarEdit())" />
-                    <FluentBadge slot="end" Appearance="Appearance.Neutral" hidden="@(!expanded)">
-                        @Roles.EDITOR
-                    </FluentBadge>
-                </FluentAnchor>
-            </AuthorizeView>
-
-            <AuthorizeView Roles="NOT_IN_ROLE, OR_ANOTHER_ROLE" Context="innerContext">
-                <FluentAnchor Href="" Appearance="Appearance.Stealth">
-                    SHOULD be hidden for user: @innerContext.User
-                </FluentAnchor>
-                <FluentDivider />
-            </AuthorizeView>
-
 
         </FluentAccordionItem>
 

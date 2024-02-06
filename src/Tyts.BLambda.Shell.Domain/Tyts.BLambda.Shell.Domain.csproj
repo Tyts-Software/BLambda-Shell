@@ -14,7 +14,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Module\ModulService.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <ProjectReference Include="..\..\..\blambda\src\Shared\Tyts.BLambda\Tyts.BLambda.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Module\" />
 	</ItemGroup>
 
 </Project>

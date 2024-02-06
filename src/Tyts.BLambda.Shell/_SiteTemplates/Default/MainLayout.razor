@@ -1,0 +1,22 @@
+﻿
+@inherits LayoutComponentBase
+
+<PageTitle>BLambda.Shell</PageTitle>
+<HeadContent>
+    <!--<link href="css/flex-theme.min.css" rel="stylesheet" />-->
+    
+</HeadContent>
+
+<div class="l-shell">
+    <main class="l-shell--main">
+        <CustomErrorBoundary @ref="errorBoundary">
+            @Body
+        </CustomErrorBoundary>
+    </main>
+    <Header />
+    <NavMenu />
+    <Footer />
+
+    <LFlyout />
+    <RFlyout />
+</div>
