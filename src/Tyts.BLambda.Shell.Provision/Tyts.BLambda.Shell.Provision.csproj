@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFramework>$(BlazorTargetFramework)</TargetFramework>
 		<!-- Roll forward to future major versions of the netcoreapp as needed -->
 		<RollForward>Major</RollForward>
 		<LangVersion>latest</LangVersion>
@@ -15,10 +15,10 @@
 
 	<ItemGroup>
 		<!-- CDK Construct Library dependencies -->
-		<PackageReference Include="Amazon.CDK.Lib" Version="2.117.0" />
-		<PackageReference Include="Amazon.CDK.AWS.APIGatewayv2.Alpha" Version="2.114.1-alpha.0" />
-		<PackageReference Include="Amazon.CDK.AWS.APIGatewayv2.Authorizers.Alpha" Version="2.114.1-alpha.0" />
-		<PackageReference Include="Amazon.CDK.AWS.APIGatewayv2.Integrations.Alpha" Version="2.114.1-alpha.0" />
+		<PackageReference Include="Amazon.CDK.Lib" />
+		<PackageReference Include="Amazon.CDK.AWS.APIGatewayv2.Alpha" />
+		<PackageReference Include="Amazon.CDK.AWS.APIGatewayv2.Authorizers.Alpha" />
+		<PackageReference Include="Amazon.CDK.AWS.APIGatewayv2.Integrations.Alpha" />
 
 		<!--
 		<PackageReference Include="Amazon.CDK.AWS.APIGateway" Version="1.115.0" />
@@ -33,7 +33,7 @@
 		<PackageReference Include="Amazon.CDK.AWS.S3.Deployment" Version="1.115.0" />-->
 
 		<!-- jsii Roslyn analyzers (un-comment to obtain compile-time checks for missing required props-->
-		<PackageReference Include="Amazon.Jsii.Analyzers" Version="*" PrivateAssets="all" />
+		<PackageReference Include="Amazon.Jsii.Analyzers" PrivateAssets="all" />
 
 	</ItemGroup>
 

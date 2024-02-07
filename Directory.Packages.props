@@ -1,0 +1,24 @@
+<Project>
+	<PropertyGroup>
+		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+		<AwsTargetFramework>net6.0</AwsTargetFramework>
+		<BlazorTargetFramework>net8.0</BlazorTargetFramework>
+	</PropertyGroup>
+	<ItemGroup>
+		<!--Blazor-->
+		<PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.1" />
+		<PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.1" />
+		<PackageVersion Include="Microsoft.AspNetCore.WebUtilities" Version="8.0.1" />
+		
+		<PackageVersion Include="Tyts.BLambda" Version="0.0.1-alpha.0" />
+		<PackageVersion Include="Tyts.BLambda.Blazor.Wasm.Components" Version="0.0.1-alpha.0" />
+		
+		<!--CDK-->
+		<PackageVersion Include="Amazon.CDK.Lib" Version="2.117.0" />
+		<PackageVersion Include="Amazon.CDK.AWS.APIGatewayv2.Alpha" Version="2.114.1-alpha.0" />
+		<PackageVersion Include="Amazon.CDK.AWS.APIGatewayv2.Authorizers.Alpha" Version="2.114.1-alpha.0" />
+		<PackageVersion Include="Amazon.CDK.AWS.APIGatewayv2.Integrations.Alpha" Version="2.114.1-alpha.0" />
+		<PackageVersion Include="Amazon.Jsii.Analyzers" Version="1.94.0" />
+	</ItemGroup>
+	
+</Project>

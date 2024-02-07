@@ -1,0 +1,67 @@
+<Project>
+	<PropertyGroup>
+		<Version Condition="'$(RELEASE_VERSION)' != ''">$(RELEASE_VERSION)</Version>
+		<VersionPrefix Condition="'$(RELEASE_VERSION)' == ''">0.0.1</VersionPrefix>
+		<VersionSuffix Condition="'$(RELEASE_VERSION)' == ''">alpha.0</VersionSuffix>
+	</PropertyGroup>
+	<!--<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+		<VersionSuffix Condition="'$(RELEASE_VERSION)' == ''">$([System.DateTime]::UtcNow.ToString('alp\ha.yyyyMMdd-HHmm'))</VersionSuffix>
+	</PropertyGroup>-->
+	
+	<PropertyGroup>	
+		<UseBLambdaProjectReference>true</UseBLambdaProjectReference>
+		
+		<PropsPath>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))</PropsPath>
+		<SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
+		<AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
+		
+		<Company>Tyts</Company>
+		<Authors>Tyts</Authors>
+		<Owners>Tyts</Owners>
+		<Copyright>Copyright © Tyts $([System.DateTime]::Now.ToString(yyyy))</Copyright>
+		<PackageLicenseFile>MIT</PackageLicenseFile>
+		<PackageOutputPath>c:\Work\My\.nuget.local\</PackageOutputPath>
+
+		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+		<WarningsNotAsErrors>612,618</WarningsNotAsErrors>
+		<GenerateDocumentationFile>false</GenerateDocumentationFile>
+		<NoWarn>$(NoWarn);CS1591</NoWarn>
+		<DebugType>portable</DebugType>
+		<GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+
+
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<NeutralLanguage>en</NeutralLanguage>
+		
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+
+		<!-- Common NuGet properties-->
+		<!--<NeutralLanguage>en</NeutralLanguage>
+		<PackageProjectUrl>https://github.com/tyts-software/blambda</PackageProjectUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<RepositoryUrl>https://github.com/tyts-software/blambda</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>-->
+		
+		<!--This is used to generate symbol package for Source Link-->
+
+		<!-- This is used by GitHub Repository to find which repository should contain the package when updloaded -->
+
+
+		<!-- Enable code style analysis -->
+		<RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
+		<!--<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>-->
+		<!-- <EnableNETAnalyzers>true</EnableNETAnalyzers> -->
+
+	</PropertyGroup>	
+	
+	<!--<ItemGroup>
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+			<_Parameter1>... .Tests</_Parameter1>
+		</AssemblyAttribute>
+	</ItemGroup>-->
+</Project>

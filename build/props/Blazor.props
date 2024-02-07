@@ -1,37 +1,13 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<Import Project="Common.props" />
 	<PropertyGroup>
 		<TargetFramework>$(BlazorTargetFramework)</TargetFramework>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	</PropertyGroup>
-
-
-	<!--<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-		<Optimize>False</Optimize>
-		<WarningLevel>6</WarningLevel>
-		<NullableReferenceTypes>true</NullableReferenceTypes>
-		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-		<NoWarn>1701;1702;8669;1591;1816</NoWarn>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<Optimize>True</Optimize>
-		<NoWarn>1701;1702;8669;1591</NoWarn>
-		<DebuggerSupport>false</DebuggerSupport>
-		<TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
-	</PropertyGroup>-->
-	
 	<ItemGroup>
 		<SupportedPlatform Include="browser" />
 	</ItemGroup>
-	<ItemGroup>
-		<ProjectReference Include="$(PropsPath)..\..\..\blambda\src\Shared\Tyts.BLambda.Abstructions\Tyts.BLambda.Abstructions.csproj" />
-		<ProjectReference Include="$(PropsPath)..\..\..\blambda\src\Shared\Tyts.BLambda\Tyts.BLambda.csproj" />
-		<ProjectReference Include="$(PropsPath)..\..\..\blambda\src\UI\Tyts.BLambda.Blazor.Wasm\Tyts.BLambda.Blazor.Wasm.csproj" />
-		<ProjectReference Include="$(PropsPath)..\..\..\blambda\src\UI\Tyts.BLambda.Blazor.Wasm.Components\Tyts.BLambda.Blazor.Wasm.Components.csproj" />
-	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="8.0.*" />		
+		<PackageReference Include="Tyts.BLambda.Blazor.Wasm.Components" />
 	</ItemGroup>
 </Project>
