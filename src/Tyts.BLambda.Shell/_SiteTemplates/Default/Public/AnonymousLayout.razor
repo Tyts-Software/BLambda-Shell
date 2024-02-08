@@ -9,20 +9,22 @@
 
 </HeadContent>
 
-<main>
-    <CustomErrorBoundary @ref="errorBoundary">
-        @if (isLoggedOut)
-        {
-            <Goodby />
-        }
-        else
-        {
-            <Welcome>
-                @Body
-            </Welcome>
-        }
-    </CustomErrorBoundary>
-</main>
+<div class="l-shell">
+    <main>
+        <CustomErrorBoundary @ref="errorBoundary">
+            @if (isLoggedOut)
+            {
+                <Goodby />
+            }
+            else
+            {
+                <Welcome>
+                    @Body
+                </Welcome>
+            }
+        </CustomErrorBoundary>
+    </main>
+</div>
 
 @inject NavigationManager Navigation
 @inject IOptionsSnapshot<RemoteAuthenticationOptions<ApiAuthorizationProviderOptions>> Options

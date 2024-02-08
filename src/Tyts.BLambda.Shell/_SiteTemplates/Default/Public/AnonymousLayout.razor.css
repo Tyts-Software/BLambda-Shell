@@ -1,7 +1,34 @@
-﻿main {
+﻿
+.l-shell {
+    display: grid;
+    grid:   "nav    main" 1fr
+            / var(--sidebar-width) 1fr;
+
+    height: 100vh;
+}
+
+main {
     grid-area: main;
     background: var(--neutral-layer-card-container);
     padding: calc(var(--design-unit) * 4px);
     
     overflow: auto;
+}
+
+/*main:before{
+    width: 16px;
+    content: " ";
+    background: center/contain no-repeat url("/_content/Tyts.BLambda.Blazor.Wasm/img/ico/tyts-icon-b.png"); 
+    position: absolute;
+    left: -16px;
+    top: -6px;
+    height:20px;
+
+    opacity: 0.4;
+}*/
+
+@media (min-width: 600px) {
+    .l-shell {
+        --sidebar-width: var(--sidebar-expanded-width);
+    }
 }
