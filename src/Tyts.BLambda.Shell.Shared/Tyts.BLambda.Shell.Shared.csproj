@@ -1,13 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+	<Import Project="..\..\build\props\Blazor.props" />
 	<PropertyGroup>
-		<TargetFramework>$(BlazorTargetFramework)</TargetFramework>
+		<RootNamespace>Tyts.BLambda.Shell</RootNamespace>
+		<Description>BLambda Shell Shared</Description>
+		<PackageTags>BLambda, BLambda Shell, Blazor WASM</PackageTags>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 	</PropertyGroup>
-
-	<ItemGroup>
-		<SupportedPlatform Include="browser" />
-	</ItemGroup>
-
+	
 	<ItemGroup>
 	  <Compile Remove="Module\ModulService.cs" />
 	</ItemGroup>
@@ -21,23 +20,15 @@
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" PrivateAssets="all" />
 	</ItemGroup>
 
-	<!--<ItemGroup>
-	  <ProjectReference Include="..\..\..\blambda\src\Shared\Tyts.BLambda\Tyts.BLambda.csproj" />
-	</ItemGroup>-->
-
-	<!--<ItemGroup>
-		<PackageReference Include="Tyts.BLambda" />
-	</ItemGroup>-->
-
 	<Choose>
-		<When Condition="'$(UseBLambdaProjectReference)' == 'true'">
+		<When Condition="'$(UseProjectReference)' == 'true'">
 			<ItemGroup>
-				<ProjectReference Include="..\..\..\blambda\src\Shared\Tyts.BLambda\Tyts.BLambda.csproj" />
+				<ProjectReference Include="..\..\..\blambda\src\UI\Tyts.BLambda.Blazor.Wasm\Tyts.BLambda.Blazor.Wasm.csproj" />
 			</ItemGroup>
 		</When>
 		<Otherwise>
 			<ItemGroup>
-				<PackageReference Include="Tyts.BLambda" />
+				<PackageReference Include="Tyts.BLambda.Blazor.Wasm" />
 			</ItemGroup>
 		</Otherwise>
 	</Choose>

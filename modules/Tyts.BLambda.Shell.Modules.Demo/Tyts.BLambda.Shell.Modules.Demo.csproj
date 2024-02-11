@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+	<Import Project="..\..\build\props\Blazor.props" />
+
+	<PropertyGroup>
+		<Product>BLambda.Shell Demo Module</Product>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+	</PropertyGroup>
+
+
+	<Choose>
+		<When Condition="'$(UseProjectReference)' == 'true'">
+			<ItemGroup>
+				<ProjectReference Include="..\..\..\blambda\src\UI\Tyts.BLambda.Blazor.Wasm.Components\Tyts.BLambda.Blazor.Wasm.Components.csproj" />
+
+				<ProjectReference Include="..\..\src\Tyts.BLambda.Shell.Shared\Tyts.BLambda.Shell.Shared.csproj" />
+			</ItemGroup>
+		</When>
+		<Otherwise>
+			<ItemGroup>
+				<PackageReference Include="Tyts.BLambda.Blazor.Wasm.Components" />
+
+				<PackageReference Include="Tyts.BLambda.Shell.Shared"  VersionOverride="$(FloatVersion)" />
+			</ItemGroup>
+		</Otherwise>
+	</Choose>
+
+
+	<ItemGroup>
+	  
+	</ItemGroup>
+</Project>

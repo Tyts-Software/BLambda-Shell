@@ -7,7 +7,7 @@
 		<SupportedPlatform Include="browser" />
 	</ItemGroup>
 
-	<ItemGroup>
+	<!--<ItemGroup>
 		<PackageReference Include="Tyts.BLambda.Blazor.Wasm.Components" />
-	</ItemGroup>
+	</ItemGroup>-->
 </Project>

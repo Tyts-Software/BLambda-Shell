@@ -1,16 +1,21 @@
 <Project>
 	<PropertyGroup>
+		<UseProjectReference>true</UseProjectReference>
+
 		<Version Condition="'$(RELEASE_VERSION)' != ''">$(RELEASE_VERSION)</Version>
 		<VersionPrefix Condition="'$(RELEASE_VERSION)' == ''">0.0.1</VersionPrefix>
-		<VersionSuffix Condition="'$(RELEASE_VERSION)' == ''">alpha.0</VersionSuffix>
-	</PropertyGroup>
-	<!--<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
 		<VersionSuffix Condition="'$(RELEASE_VERSION)' == ''">$([System.DateTime]::UtcNow.ToString('alp\ha.yyyyMMdd-HHmm'))</VersionSuffix>
-	</PropertyGroup>-->
+	</PropertyGroup>
+	<Choose>
+		<When Condition="'$(RELEASE_VERSION)' == ''">
+			<PropertyGroup><FloatVersion>0.0.1-alpha.*</FloatVersion></PropertyGroup>
+		</When>
+		<Otherwise>
+			<PropertyGroup><FloatVersion>$(RELEASE_VERSION)</FloatVersion></PropertyGroup>
+		</Otherwise>
+	</Choose>
 	
 	<PropertyGroup>	
-		<UseBLambdaProjectReference>true</UseBLambdaProjectReference>
-		
 		<PropsPath>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))</PropsPath>
 		<SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
 		<AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
@@ -19,8 +24,8 @@
 		<Authors>Tyts</Authors>
 		<Owners>Tyts</Owners>
 		<Copyright>Copyright © Tyts $([System.DateTime]::Now.ToString(yyyy))</Copyright>
-		<PackageLicenseFile>MIT</PackageLicenseFile>
-		<PackageOutputPath>c:\Work\My\.nuget.local\</PackageOutputPath>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
 
 		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
 		<WarningsNotAsErrors>612,618</WarningsNotAsErrors>

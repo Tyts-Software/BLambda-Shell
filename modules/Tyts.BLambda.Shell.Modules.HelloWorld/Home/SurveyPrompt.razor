@@ -1,4 +1,8 @@
-﻿@namespace Tyts.BLambda.Blazor.Survey
+﻿@code {
+    // Demonstrates how a parent component can supply parameters
+    [Parameter]
+    public string? Title { get; set; }
+}
 
 <div class="prompt">
     <span class="oi oi-pencil me-2" aria-hidden="true"></span>
@@ -10,9 +14,3 @@
         and tell us what you think.
     </p>
 </div>
-
-@code {
-    // Demonstrates how a parent component can supply parameters
-    [Parameter]
-    public string? Title { get; set; }
-}

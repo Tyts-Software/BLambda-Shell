@@ -18,6 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".solution items", ".solutio
 		Directory.Build.props = Directory.Build.props
 		Directory.Packages.props = Directory.Packages.props
 		LICENSE = LICENSE
+		nuget.config = nuget.config
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -31,8 +32,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "props", "props", "{E26ACA9E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BLambda", "BLambda", "{60158C87-B818-4D70-9F63-E55FAAC0830A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyts.BLambda.Shell.Domain", "src\Tyts.BLambda.Shell.Domain\Tyts.BLambda.Shell.Domain.csproj", "{9D1D4F47-C112-49FE-9E27-987853FEC760}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyts.BLambda.Shell", "src\Tyts.BLambda.Shell\Tyts.BLambda.Shell.csproj", "{83014CFF-CA50-463D-A712-C759E7C7C3D8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyts.BLambda.Shell.Provision", "src\Tyts.BLambda.Shell.Provision\Tyts.BLambda.Shell.Provision.csproj", "{E587F783-0C84-4CC9-A64A-F9201A7DAEC8}"
@@ -45,16 +44,20 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyts.BLambda", "..\blambda\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyts.BLambda.Abstructions", "..\blambda\src\Shared\Tyts.BLambda.Abstructions\Tyts.BLambda.Abstructions.csproj", "{379E809D-87AD-4DCB-A4C0-3F1FEBEB281C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{CC54A24F-4BD4-4471-9607-14DFB6174C94}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyts.BLambda.Shell.Modules.Demo", "modules\Tyts.BLambda.Shell.Modules.Demo\Tyts.BLambda.Shell.Modules.Demo.csproj", "{14D173AD-D931-41DF-A317-8B375B9109DA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyts.BLambda.Shell.Shared", "src\Tyts.BLambda.Shell.Shared\Tyts.BLambda.Shell.Shared.csproj", "{95CD74AE-7957-4DD9-B499-AFAF8C60C3D2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyts.BLambda.Shell.Modules.HelloWorld", "modules\Tyts.BLambda.Shell.Modules.HelloWorld\Tyts.BLambda.Shell.Modules.HelloWorld.csproj", "{E21D1DA4-A273-4197-AE70-20D6F462D676}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9D1D4F47-C112-49FE-9E27-987853FEC760}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9D1D4F47-C112-49FE-9E27-987853FEC760}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9D1D4F47-C112-49FE-9E27-987853FEC760}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9D1D4F47-C112-49FE-9E27-987853FEC760}.Release|Any CPU.Build.0 = Release|Any CPU
 		{83014CFF-CA50-463D-A712-C759E7C7C3D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{83014CFF-CA50-463D-A712-C759E7C7C3D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83014CFF-CA50-463D-A712-C759E7C7C3D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -79,6 +82,17 @@ Global
 		{379E809D-87AD-4DCB-A4C0-3F1FEBEB281C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{379E809D-87AD-4DCB-A4C0-3F1FEBEB281C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{379E809D-87AD-4DCB-A4C0-3F1FEBEB281C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14D173AD-D931-41DF-A317-8B375B9109DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14D173AD-D931-41DF-A317-8B375B9109DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14D173AD-D931-41DF-A317-8B375B9109DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95CD74AE-7957-4DD9-B499-AFAF8C60C3D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95CD74AE-7957-4DD9-B499-AFAF8C60C3D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95CD74AE-7957-4DD9-B499-AFAF8C60C3D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95CD74AE-7957-4DD9-B499-AFAF8C60C3D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E21D1DA4-A273-4197-AE70-20D6F462D676}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E21D1DA4-A273-4197-AE70-20D6F462D676}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E21D1DA4-A273-4197-AE70-20D6F462D676}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E21D1DA4-A273-4197-AE70-20D6F462D676}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,6 +103,8 @@ Global
 		{00C90A70-1DFB-436C-8336-359BA77ABBD0} = {60158C87-B818-4D70-9F63-E55FAAC0830A}
 		{FCDC954C-16A7-4016-8285-91042C587AFC} = {60158C87-B818-4D70-9F63-E55FAAC0830A}
 		{379E809D-87AD-4DCB-A4C0-3F1FEBEB281C} = {60158C87-B818-4D70-9F63-E55FAAC0830A}
+		{14D173AD-D931-41DF-A317-8B375B9109DA} = {CC54A24F-4BD4-4471-9607-14DFB6174C94}
+		{E21D1DA4-A273-4197-AE70-20D6F462D676} = {CC54A24F-4BD4-4471-9607-14DFB6174C94}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4D91F200-923F-4930-AB7F-18265CCA77FE}

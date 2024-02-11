@@ -15,5 +15,5 @@ public partial class MainLayout : LayoutComponentBase
     protected override void OnParametersSet()
     {
         errorBoundary?.Recover();
-    }    
+    }
 }

@@ -1,0 +1,20 @@
+﻿@page "/demo/dashboard"
+
+@code {
+    public static readonly string PageUrl = "/demo/dashboard";
+}
+
+<PageTitle>Dashboard</PageTitle>
+
+<Header />
+<Overview>
+    <OverviewCard />
+    <OverviewCard Icon="@(new Icons.Regular.Size24.Airplane())" Value="10" />
+    <OverviewCard Icon="@(new Icons.Regular.Size24.DriveTrain())" Value="100" />
+    <OverviewCard Icon="@(new Icons.Regular.Size24.VehicleCar())" Value="1" />
+</Overview>
+<Main>
+    <MainCard>Card content</MainCard>
+    <MainCard>Card content</MainCard>
+    <MainCard>Card content</MainCard>
+</Main>

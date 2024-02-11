@@ -1,0 +1,24 @@
+﻿.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background-color: #82bef6;
+    margin-bottom: 20px;
+    -webkit-column-break-inside: avoid;
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+    /* Force varying heights to simulate dynamic content */
+    .card:first-child {
+        height: 485px;
+    }
+
+    .card:nth-child(2) {
+        height: 200px;
+    }
+
+    .card:nth-child(3) {
+        height: 265px;
+    }

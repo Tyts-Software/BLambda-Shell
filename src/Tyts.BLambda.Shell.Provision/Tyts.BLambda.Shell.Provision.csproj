@@ -35,10 +35,8 @@
 		<!-- jsii Roslyn analyzers (un-comment to obtain compile-time checks for missing required props-->
 		<PackageReference Include="Amazon.Jsii.Analyzers" PrivateAssets="all" />
 
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\Tyts.BLambda.Shell.Domain\Tyts.BLambda.Shell.Domain.csproj" />
+		<!--Shell-->
+		<PackageReference Include="Tyts.BLambda.Shell.Shared"  VersionOverride="$(FloatVersion)" />
 	</ItemGroup>
 
 

@@ -1,0 +1,12 @@
+﻿<div class="overview-card">
+    <div class="icon"><FluentIcon Value="@Icon" /></div>
+    <div class="info">@Value</div>
+</div>
+
+@code {
+    [Parameter]
+    public Icon Icon { get; set; } = new Icons.Regular.Size24.Status();
+
+    [Parameter]
+    public string Value { get; set; } = "0";
+}

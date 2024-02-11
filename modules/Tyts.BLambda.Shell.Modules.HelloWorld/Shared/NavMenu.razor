@@ -1,0 +1,48 @@
+﻿@using Tyts.BLambda.Shell.Modules.HelloWorld.Home
+@using Tyts.BLambda.Shell.Modules.HelloWorld.Counter
+@using Tyts.BLambda.Shell.Modules.HelloWorld.Weather
+
+
+@attribute [Slots.NavMenuSlot]
+@inject NavigationManager NavigationManager
+
+@code {
+    private string? target;
+
+    protected override void OnInitialized()
+    {
+        NavigationManager.LocationChanged += NavigationManager_LocationChanged;
+        base.OnInitialized();
+    }
+
+    private void NavigationManager_LocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        Uri uri = new Uri(e.Location);
+        target = uri.PathAndQuery;
+        StateHasChanged();
+    }
+
+    private Appearance SetAppearance(string location) => 
+        (location == target) 
+            ? Appearance.Accent 
+            : Appearance.Stealth;
+}
+
+
+<FluentAccordionItem Expanded="true" Heading="Hello World Module">
+    <FluentIcon Slot="start" Value="@(new Icons.Regular.Size24.Globe())" />
+
+    <FluentAnchor Href="@HomePage.PageUrl" Appearance=@SetAppearance(HomePage.PageUrl)>
+        Home
+        <FluentIcon Slot="start" Value="@(new Icons.Regular.Size24.Home())" />
+    </FluentAnchor>
+    <FluentAnchor Href="@CounterPage.PageUrl" Appearance=@SetAppearance(CounterPage.PageUrl)>
+        Counter
+        <FluentIcon Slot="start" Value="@(new Icons.Regular.Size24.AddSubtractCircle())" />
+    </FluentAnchor>
+    <FluentAnchor Href="@ForecastPage.PageUrl" Appearance=@SetAppearance(ForecastPage.PageUrl)>
+        Weather Forecast
+        <FluentIcon Slot="start" Value="@(new Icons.Regular.Size24.Table())" />
+    </FluentAnchor>
+</FluentAccordionItem>
+

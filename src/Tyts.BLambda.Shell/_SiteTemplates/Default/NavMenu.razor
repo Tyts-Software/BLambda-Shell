@@ -1,4 +1,47 @@
-﻿
+﻿@using Tyts.BLambda.Shell.Help
+
+@implements IDisposable
+
+@inject NavigationManager NavigationManager
+@inject INavMenuService NavMenuService
+@inject ILogger<NavMenu> Logger
+@code {
+
+    private static string target = string.Empty;
+
+    string collapsed_css => NavMenuService.IsExpanded ? string.Empty : "collapsed";
+    bool expanded => NavMenuService.IsExpanded;
+
+    protected override void OnInitialized()
+    {
+        NavigationManager.LocationChanged += NavMeny_LocationChanged;
+        NavMenuService.Expanded += NavMenu_WidthToggled;
+    }
+
+    async Task NavMenu_WidthToggled(bool open)
+    {
+        await InvokeAsync(StateHasChanged);
+    }
+
+    void NavMeny_LocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        Uri uri = new Uri(e.Location);
+        target = uri.PathAndQuery;
+        StateHasChanged();
+    }
+
+    Appearance SetAppearance(string location) =>
+        (location == target)
+            ? Appearance.Accent
+            : Appearance.Stealth;
+
+    void IDisposable.Dispose()
+    {
+        NavigationManager.LocationChanged -= NavMeny_LocationChanged;
+        NavMenuService.Expanded -= NavMenu_WidthToggled;
+    }
+}
+
 <aside class="nav-menu @collapsed_css">
     <FlexBox Class="expander" HorizontalGap="4">
         <NavMenuExpander />                
@@ -8,19 +51,14 @@
     <div class="thin-scrollbar">
     <FluentAccordion>
 
-        <FluentAccordionItem Expanded="true" Heading="Hello World!">
-            <FluentIcon Slot="start" Value="@(new Icons.Regular.Size24.Globe())" />
+        <FluentAccordionItem Expanded="true" Heading="BLambda Shell">
+            @* <FluentIcon Slot="start" Value="@(new Icons.Regular.Size24.Globe())" /> *@
 
-            @foreach (var link in links)
-            {
-                <FluentAnchor @key=link Href="@link.Href" Appearance="@link.Appearance">
-                    @link.Text
-                    <FluentIcon Slot="start" Value="@link.Icon" />
-                </FluentAnchor>
-            }
-
-
-
+            <FluentAnchor Href="@AboutPage.PageUrl" Appearance=@SetAppearance(AboutPage.PageUrl)>
+                About
+                @* <FluentIcon Slot="start" Value="@(new Icons.Regular.Size24.ReadingList())" /> *@
+            </FluentAnchor>
+            
         </FluentAccordionItem>
 
         <FluentAccordionItem Expanded="true" Heading="Auth Roles">
@@ -86,63 +124,3 @@
     </div>
 </aside>
 
-@implements IDisposable
-
-@inject NavigationManager NavigationManager
-@inject INavMenuService NavMenuService
-@inject ILogger<NavMenu> Logger
-@code {
-
-
-    class Link
-    {
-        public string? Text { get; set; }
-        public string? Href { get; set; }
-        public Icon? Icon { get; set; }
-        public Appearance Appearance => (Href?.Equals(target, StringComparison.InvariantCultureIgnoreCase) ?? false)
-            ? Appearance.Stealth
-            : Appearance.Lightweight;
-    }
-
-
-    private static string target = string.Empty;
-
-    private readonly List<Link> links = new()
-    {
-       new(){ Text = "Home", Href = string.Empty, Icon = new Icons.Regular.Size24.Home() },
-       new(){ Text = "Counter", Href = "/demo/counter", Icon = new Icons.Regular.Size24.AddSubtractCircle() },
-       new(){ Text = "Fetch Data", Href = "/demo/fetchdata", Icon = new Icons.Regular.Size24.Table() }
-    };
-
-    string collapsed_css => NavMenuService.IsExpanded ? string.Empty : "collapsed";
-    bool expanded => NavMenuService.IsExpanded;
-
-    protected override void OnInitialized()
-    {
-        NavigationManager.LocationChanged += NavMeny_LocationChanged;
-        NavMenuService.Expanded += NavMenu_Toggled;
-    }
-
-    async Task NavMenu_Toggled(bool open)
-    {
-        await InvokeAsync(StateHasChanged);
-    }
-
-    void NavMeny_LocationChanged(object? sender, LocationChangedEventArgs e)
-    {
-        Uri uri = new Uri(e.Location);
-        if (uri.Segments.Count() > 1)
-            target = uri.Segments[1];
-        else
-            target = string.Empty;
-
-        //StateHasChanged();
-    }
-
-
-    void IDisposable.Dispose()
-    {
-        NavigationManager.LocationChanged -= NavMeny_LocationChanged;
-        NavMenuService.Expanded -= NavMenu_Toggled;
-    }
-}
