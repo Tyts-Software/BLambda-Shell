@@ -4,27 +4,9 @@
 @inject Lazy<NotifierService> Notifier
 @inject Lazy<TimerService> Timer
 
-<h1>Receive Notifications</h1>
-
-<h2>Timer Service</h2>
-
-<button @onclick="StartTimer">Start Timer</button>
-
-<h2>Notifications</h2>
-
-<p>
-    Status:
-    @if (lastNotification.key is not null)
-    {
-        <span>@lastNotification.key = @lastNotification.value</span>
-    }
-    else
-    {
-        <span>Awaiting first notification</span>
-    }
-</p>
-
 @code {
+    public static readonly string PageUrl = "/demo/notifications";
+
     private (string key, int value) lastNotification;
 
     protected override void OnInitialized()
@@ -51,3 +33,23 @@
         Notifier.Value.Notify -= OnNotify;
     }
 }
+
+<h1>Receive Notifications</h1>
+
+<h2>Timer Service</h2>
+
+<button @onclick="StartTimer">Start Timer</button>
+
+<h2>Notifications</h2>
+
+<p>
+    Status:
+    @if (lastNotification.key is not null)
+    {
+        <span>@lastNotification.key = @lastNotification.value</span>
+    }
+    else
+    {
+        <span>Awaiting first notification</span>
+    }
+</p>

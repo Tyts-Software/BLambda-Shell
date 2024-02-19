@@ -1,0 +1,12 @@
+[
+    {
+        "outputFileName": "wwwroot/css/default.template.min.css",
+        "inputFiles": [
+            ".Assets/Styles/root.css"
+        ],
+        "minify": {
+            "enabled": true,
+            "commentMode": "important"
+        }
+    }
+]

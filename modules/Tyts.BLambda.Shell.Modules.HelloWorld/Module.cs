@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Tyts.BLambda.Blazor.Application.Module;
 
 [assembly: Module(
@@ -24,15 +27,23 @@ namespace Tyts.BLambda.Shell.Modules.Demo;
 
 public sealed class Module : IStartup
 {
-    //[ModuleInitializer]
-    //internal static void Initialize()
-    //{
-    //    //var serviceProvider = new ServiceCollection()
-    //    //    .BuildServiceProvider();
-    //}
+    private readonly IWebAssemblyHostEnvironment env;
+    //private readonly IConfiguration configuration;
+
+    public Module(
+        IConfiguration configuration,
+        IWebAssemblyHostEnvironment env
+        )
+    {
+        this.env = env;
+    }
 
     public void ConfigureServices(IServiceCollection services)
     {
-        
+        var http = new HttpClient()
+        {
+            BaseAddress = new Uri(env.BaseAddress)
+        };
+        services.TryAddSingleton(sp => http);
     }
 }

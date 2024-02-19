@@ -36,7 +36,7 @@
 		<PackageReference Include="Amazon.Jsii.Analyzers" PrivateAssets="all" />
 
 		<!--Shell-->
-		<PackageReference Include="Tyts.BLambda.Shell.Shared"  VersionOverride="$(FloatVersion)" />
+		<PackageReference Include="Tyts.BLambda.Shell.Shared" />
 	</ItemGroup>
 
 

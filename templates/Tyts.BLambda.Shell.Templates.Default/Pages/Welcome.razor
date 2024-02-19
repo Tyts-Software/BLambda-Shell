@@ -1,0 +1,29 @@
+﻿@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.Extensions.Options
+
+@inject NavigationManager Navigation
+@inject IOptionsSnapshot<RemoteAuthenticationOptions<ApiAuthorizationProviderOptions>> Options
+
+@code {
+    string header = "BLambda Shell";
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public string ReturnUrl { get; set; } = "/";
+}
+
+
+<PageTitle>@header</PageTitle>
+
+
+<FlexBox Orientation="Orientation.Vertical"
+       HorizontalAlignment="FlexBoxHorizontalAlignment.Left"
+       VerticalAlignment="FlexBoxVerticalAlignment.Center"
+       Style="height: 80%;">
+    <h3>@header</h3>
+    <section>
+        @ChildContent
+    </section>
+</FlexBox>

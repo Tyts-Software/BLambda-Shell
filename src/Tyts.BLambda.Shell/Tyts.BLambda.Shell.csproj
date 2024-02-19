@@ -1,8 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 	<Import Project="..\..\build\props\Blazor.props" />
-	<PropertyGroup>
-		<IsPackable>false</IsPackable>
-	</PropertyGroup>
 	
 	<ItemGroup>
 		<EmbeddedResource Include="wwwroot\appsettings.Development.secrets.json">
@@ -11,6 +8,7 @@
 		<EmbeddedResource Include="wwwroot\appsettings.secrets.json">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</EmbeddedResource>
+		<Content Remove="bundleconfig.json" />
 		<Content Remove="wwwroot\appsettings.Development.secrets.json" />
 		<Content Remove="wwwroot\appsettings.secrets.json" />
 	</ItemGroup>
@@ -28,7 +26,10 @@
 			<ItemGroup>
 				<ProjectReference Include="..\..\..\blambda\src\UI\Tyts.BLambda.Blazor.Wasm.Components\Tyts.BLambda.Blazor.Wasm.Components.csproj" />
 
+				<!--Shell-->
 				<ProjectReference Include="..\Tyts.BLambda.Shell.Shared\Tyts.BLambda.Shell.Shared.csproj" />
+				<ProjectReference Include="..\Tyts.BLambda.Shell.Cognito\Tyts.BLambda.Shell.Cognito.csproj" />
+				<ProjectReference Include="..\..\templates\Tyts.BLambda.Shell.Templates.Default\Tyts.BLambda.Shell.Templates.Default.csproj" />
 
 				<!--Shell Modules-->
 				<ProjectReference Include="..\..\modules\Tyts.BLambda.Shell.Modules.HelloWorld\Tyts.BLambda.Shell.Modules.HelloWorld.csproj" />
@@ -38,19 +39,27 @@
 		<Otherwise>
 			<ItemGroup>
 				<PackageReference Include="Tyts.BLambda.Blazor.Wasm.Components" />
-				
-				<PackageReference Include="Tyts.BLambda.Shell.Shared" VersionOverride="$(FloatVersion)" />
+
+				<!--Shell-->
+				<PackageReference Include="Tyts.BLambda.Shell.Shared" />
+				<PackageReference Include="Tyts.BLambda.Shell.Cognito" />
+				<PackageReference Include="Tyts.BLambda.Shell.Templates.Default" />
 
 				<!--Shell Modules-->
-				<PackageReference Include="Tyts.BLambda.Shell.Modules.HelloWorld" VersionOverride="$(FloatVersion)" />
-				<PackageReference Include="Tyts.BLambda.Shell.Modules.Demo" VersionOverride="$(FloatVersion)" />
+				<PackageReference Include="Tyts.BLambda.Shell.Modules.HelloWorld" />
+				<PackageReference Include="Tyts.BLambda.Shell.Modules.Demo" />
 			</ItemGroup>
 		</Otherwise>
 	</Choose>
 
+
 	<ItemGroup>
 		<BlazorWebAssemblyLazyLoad Include="Tyts.BLambda.Shell.Modules.HelloWorld.wasm" />
 		<BlazorWebAssemblyLazyLoad Include="Tyts.BLambda.Shell.Modules.Demo.wasm" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="bundleconfig.json" />
 	</ItemGroup>
 
 </Project>

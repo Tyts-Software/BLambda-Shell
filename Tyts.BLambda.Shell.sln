@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{B285C4
 		build\cdk-destroy.ps1 = build\cdk-destroy.ps1
 		build\delete-stack.ps1 = build\delete-stack.ps1
 		build\deploy.ps1 = build\deploy.ps1
+		build\nuget-pack.ps1 = build\nuget-pack.ps1
 		build\publish.ps1 = build\publish.ps1
 	EndProjectSection
 EndProject
@@ -27,6 +28,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "props", "props", "{E26ACA9E
 		build\props\Api.Client.props = build\props\Api.Client.props
 		build\props\Api.props = build\props\Api.props
 		build\props\Blazor.props = build\props\Blazor.props
+		build\props\Blazor.targets = build\props\Blazor.targets
 		build\props\NSwag.targets = build\props\NSwag.targets
 	EndProjectSection
 EndProject
@@ -51,6 +53,16 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyts.BLambda.Shell.Shared", "src\Tyts.BLambda.Shell.Shared\Tyts.BLambda.Shell.Shared.csproj", "{95CD74AE-7957-4DD9-B499-AFAF8C60C3D2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyts.BLambda.Shell.Modules.HelloWorld", "modules\Tyts.BLambda.Shell.Modules.HelloWorld\Tyts.BLambda.Shell.Modules.HelloWorld.csproj", "{E21D1DA4-A273-4197-AE70-20D6F462D676}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{E60AFCBE-459C-4A17-A7DE-478ECBF7A7AB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{F33CF86C-8E4B-48DF-9298-9EA3579D95E3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyts.BLambda.Shell.Templates.Default", "templates\Tyts.BLambda.Shell.Templates.Default\Tyts.BLambda.Shell.Templates.Default.csproj", "{DACB4DAD-AC27-4A50-81C3-2354A01CAFA7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloWorld", "examples\HelloWorld\HelloWorld.csproj", "{74883A88-17AB-4E02-8396-1969ACD21B56}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tyts.BLambda.Shell.Cognito", "src\Tyts.BLambda.Shell.Cognito\Tyts.BLambda.Shell.Cognito.csproj", "{9F111230-462E-41CE-8D02-CCC0972EC44D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +105,18 @@ Global
 		{E21D1DA4-A273-4197-AE70-20D6F462D676}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E21D1DA4-A273-4197-AE70-20D6F462D676}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E21D1DA4-A273-4197-AE70-20D6F462D676}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DACB4DAD-AC27-4A50-81C3-2354A01CAFA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DACB4DAD-AC27-4A50-81C3-2354A01CAFA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DACB4DAD-AC27-4A50-81C3-2354A01CAFA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DACB4DAD-AC27-4A50-81C3-2354A01CAFA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74883A88-17AB-4E02-8396-1969ACD21B56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74883A88-17AB-4E02-8396-1969ACD21B56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74883A88-17AB-4E02-8396-1969ACD21B56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74883A88-17AB-4E02-8396-1969ACD21B56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F111230-462E-41CE-8D02-CCC0972EC44D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F111230-462E-41CE-8D02-CCC0972EC44D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F111230-462E-41CE-8D02-CCC0972EC44D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F111230-462E-41CE-8D02-CCC0972EC44D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -105,6 +129,8 @@ Global
 		{379E809D-87AD-4DCB-A4C0-3F1FEBEB281C} = {60158C87-B818-4D70-9F63-E55FAAC0830A}
 		{14D173AD-D931-41DF-A317-8B375B9109DA} = {CC54A24F-4BD4-4471-9607-14DFB6174C94}
 		{E21D1DA4-A273-4197-AE70-20D6F462D676} = {CC54A24F-4BD4-4471-9607-14DFB6174C94}
+		{DACB4DAD-AC27-4A50-81C3-2354A01CAFA7} = {F33CF86C-8E4B-48DF-9298-9EA3579D95E3}
+		{74883A88-17AB-4E02-8396-1969ACD21B56} = {E60AFCBE-459C-4A17-A7DE-478ECBF7A7AB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4D91F200-923F-4930-AB7F-18265CCA77FE}

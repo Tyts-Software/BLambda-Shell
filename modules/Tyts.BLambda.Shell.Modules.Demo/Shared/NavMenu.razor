@@ -1,4 +1,5 @@
 ﻿@using Tyts.BLambda.Shell.Modules.Demo.Dashboard
+@using Tyts.BLambda.Shell.Modules.Demo.Notifier
 
 @attribute [Slots.NavMenuSlot]
 @inject NavigationManager NavigationManager
@@ -34,9 +35,9 @@
         <FluentIcon Slot="start" Value="@(new Icons.Regular.Size24.BoardSplit())" />
     </FluentAnchor>
     
-    @* <FluentAnchor Href="demo/notifications" Appearance=@SetAppearance("demo/notifications")>
+    <FluentAnchor Href="@NotificationsPage.PageUrl" Appearance=@SetAppearance(NotificationsPage.PageUrl)>
         Notifications
         <FluentIcon Slot="start" Value="@(new Icons.Regular.Size24.NotebookSync())" />
-    </FluentAnchor> *@
+    </FluentAnchor>
 </FluentAccordionItem>
 

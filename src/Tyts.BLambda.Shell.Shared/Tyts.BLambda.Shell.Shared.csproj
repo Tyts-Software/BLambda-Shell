@@ -2,9 +2,10 @@
 	<Import Project="..\..\build\props\Blazor.props" />
 	<PropertyGroup>
 		<RootNamespace>Tyts.BLambda.Shell</RootNamespace>
+
+		<IsPackable>true</IsPackable>
 		<Description>BLambda Shell Shared</Description>
 		<PackageTags>BLambda, BLambda Shell, Blazor WASM</PackageTags>
-		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 	</PropertyGroup>
 	
 	<ItemGroup>

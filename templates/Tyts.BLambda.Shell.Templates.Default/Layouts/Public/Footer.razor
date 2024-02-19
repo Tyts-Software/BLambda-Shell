@@ -1,0 +1,44 @@
+﻿
+<footer>    
+    <FluentDivider></FluentDivider>
+    
+    <div class="toolbar">
+
+        <FluentButton Appearance="Appearance.Stealth" @onclick="@(()=>Flayout.LeftSidebar.Open("Sidebar Setup", null!))">
+            <FluentIcon Value="@(new Icons.Regular.Size24.MoreHorizontal())" />
+        </FluentButton>
+
+        <FluentDivider Class="mr-auto" Orientation="Orientation.Vertical" hidden="@collapsed"></FluentDivider>
+
+        <Toolbar Collapsed="@collapsed">
+            <Slot TSlot=Slots.FooterToolbarSlot />
+        </Toolbar>
+        
+    </div>
+    
+</footer>
+
+
+@implements IDisposable
+
+@inject IFlyoutService Flayout
+@inject INavMenuService NavMenu
+
+@code {
+    bool collapsed => !NavMenu.IsExpanded;
+
+    protected override void OnInitialized()
+    {
+        NavMenu.Expanded += NavMenu_Toggled;
+    }
+
+    async Task NavMenu_Toggled(bool open)
+    {
+        await InvokeAsync(StateHasChanged);
+    }
+
+    void IDisposable.Dispose()
+    {
+        NavMenu.Expanded -= NavMenu_Toggled;
+    }
+}

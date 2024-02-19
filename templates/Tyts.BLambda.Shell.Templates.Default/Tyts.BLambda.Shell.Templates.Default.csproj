@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<Import Project="..\..\build\props\Blazor.props" />
+	<Import Project="..\..\build\props\Blazor.targets" />
+	
+	<PropertyGroup>
+		<IsPackable>true</IsPackable>
+		<Product>BLambda.Shell Default Site Tempate</Product>
+	</PropertyGroup>
+
+
+	<Choose>
+		<When Condition="'$(UseProjectReference)' == 'true'">
+			<ItemGroup>
+				<ProjectReference Include="..\..\..\blambda\src\UI\Tyts.BLambda.Blazor.Wasm.Components\Tyts.BLambda.Blazor.Wasm.Components.csproj" />
+
+				<ProjectReference Include="..\..\src\Tyts.BLambda.Shell.Shared\Tyts.BLambda.Shell.Shared.csproj" />
+			</ItemGroup>
+		</When>
+		<Otherwise>
+			<ItemGroup>
+				<PackageReference Include="Tyts.BLambda.Blazor.Wasm.Components" />
+
+				<PackageReference Include="Tyts.BLambda.Shell.Shared" />
+			</ItemGroup>
+		</Otherwise>
+	</Choose>
+
+
+	<ItemGroup>
+		<None Include="bundleconfig.json" />
+	</ItemGroup>
+
+
+	<Target Name="InjectToCssBundle" BeforeTargets="AfterBuild">
+		<ItemGroup>
+			<ImportBefore Include="/_content/Tyts.BLambda.Blazor.Wasm/css/bl-reboot.min.css" />
+		</ItemGroup>
+		<ItemGroup>
+			<ImportAfter Include="/_content/Tyts.BLambda.Shell.Templates.Default/css/default.template.min.css" />
+		</ItemGroup>
+		<InjectToScopedCssBundle Bundle="$(ProjectDir)obj\$(Configuration)\$(TargetFramework)\scopedcss\bundle\$(AssemblyName).styles.css" ImportsBefore="@(ImportBefore)" ImportsAfter="@(ImportAfter)" />
+		<InjectToScopedCssBundle Bundle="$(ProjectDir)obj\$(Configuration)\$(TargetFramework)\scopedcss\projectbundle\$(AssemblyName).bundle.scp.css" ImportsBefore="@(ImportBefore)" ImportsAfter="@(ImportAfter)" />
+	</Target>
+	
+</Project>

@@ -1,0 +1,56 @@
+﻿@implements IDisposable
+
+@inject NavigationManager NavigationManager
+@inject INavMenuService NavMenuService
+@inject ILogger<NavMenu> Logger
+@code {
+
+    private static string target = string.Empty;
+
+    string collapsed_css => NavMenuService.IsExpanded ? string.Empty : "collapsed";
+    bool expanded => NavMenuService.IsExpanded;
+
+    protected override void OnInitialized()
+    {
+        NavigationManager.LocationChanged += NavMeny_LocationChanged;
+        NavMenuService.Expanded += NavMenu_WidthToggled;
+    }
+
+    async Task NavMenu_WidthToggled(bool open)
+    {
+        await InvokeAsync(StateHasChanged);
+    }
+
+    void NavMeny_LocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        Uri uri = new Uri(e.Location);
+        target = uri.PathAndQuery;
+        StateHasChanged();
+    }
+
+    Appearance SetAppearance(string location) =>
+        (location == target)
+            ? Appearance.Accent
+            : Appearance.Stealth;
+
+    void IDisposable.Dispose()
+    {
+        NavigationManager.LocationChanged -= NavMeny_LocationChanged;
+        NavMenuService.Expanded -= NavMenu_WidthToggled;
+    }
+}
+
+<aside class="nav-menu @collapsed_css">
+    <FlexBox Class="expander" HorizontalGap="4">
+        <NavMenuExpander />                
+        <FluentSearch class="search" type="search" Placeholder="Search in menu.." />
+        @*Autofocus=true @bind-Value=nameFilter @oninput="HandleCountryFilter" @onchange="HandleClear"*@
+    </FlexBox>
+    <div class="thin-scrollbar">
+    <FluentAccordion>        
+
+        <Slot TSlot=Slots.NavMenuSlot />
+
+    </FluentAccordion>
+    </div>
+</aside>

@@ -1,0 +1,72 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<!--https://github.com/MicrosoftDocs/visualstudio-docs/blob/main/docs/msbuild/msbuild-inline-tasks.md-->
+	<UsingTask TaskName="InjectToScopedCssBundle" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+		<ParameterGroup>
+			<Bundle ParameterType="System.String" Required="true" />
+			<ImportsBefore ParameterType="Microsoft.Build.Framework.ITaskItem[]" />
+			<ImportsAfter ParameterType="Microsoft.Build.Framework.ITaskItem[]" />
+		</ParameterGroup>
+		<Task>
+			<Using Namespace="System" />
+			<Using Namespace="System.Diagnostics" />
+			<Using Namespace="System.IO" />
+			<Using Namespace="System.Reflection" />
+			<Code Type="Fragment" Language="cs">
+				<![CDATA[
+				
+					try
+					{
+						if (File.Exists(Bundle))
+						{
+							Log.LogMessage(MessageImportance.High, "Injecting BLambda to '{0}'", Bundle);
+							
+							var bundle = new StringBuilder();
+							
+							var css = File.ReadAllText(Bundle);
+							//Log.LogMessage(MessageImportance.High, "css: '{0}'", css);
+							
+							var last = css.LastIndexOf("@import") + 1;
+							if (last > 0)
+							{
+								last = css.IndexOf(';', last) + 1;
+							}
+							//Log.LogMessage(MessageImportance.High, "last: '{0}'", last);
+
+							// BEFORE
+							foreach (var item in ImportsBefore)
+							{
+								bundle.AppendLine(string.Format("@import '{0}';", item.ItemSpec));
+								//Log.LogMessage(MessageImportance.High, "@import '{0}'", item.ItemSpec);
+							}
+							
+							// existing imports
+							bundle.AppendLine(css.Substring(0, last));
+							//Log.LogMessage(MessageImportance.High, "existing imports: '{0}'", css.Substring(0, last));
+							
+							// AFTER
+							foreach (var item in ImportsAfter)
+							{
+								bundle.AppendLine(string.Format("@import '{0}';", item.ItemSpec));
+								//Log.LogMessage(MessageImportance.High, "@import '{0}'", item.ItemSpec);
+							}
+							
+							// rest of the css								
+							bundle.AppendLine(css.Substring(last));
+							
+							//Log.LogMessage(MessageImportance.High, bundle.ToString());
+							File.WriteAllText(Bundle, bundle.ToString());
+						}
+						else
+						{
+							Debug.WriteLine("Cannot find bundle '{0}'", Bundle);
+						}
+					}
+					catch (Exception e)
+					{
+						Log.LogError(e.Message);
+					}
+				]]>
+			</Code>
+		</Task>
+	</UsingTask>
+</Project>

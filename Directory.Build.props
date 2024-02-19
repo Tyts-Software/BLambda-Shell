@@ -1,37 +1,37 @@
 <Project>
 	<PropertyGroup>
 		<UseProjectReference>true</UseProjectReference>
-
-		<Version Condition="'$(RELEASE_VERSION)' != ''">$(RELEASE_VERSION)</Version>
-		<VersionPrefix Condition="'$(RELEASE_VERSION)' == ''">0.0.1</VersionPrefix>
-		<VersionSuffix Condition="'$(RELEASE_VERSION)' == ''">$([System.DateTime]::UtcNow.ToString('alp\ha.yyyyMMdd-HHmm'))</VersionSuffix>
+		<IsPackable>false</IsPackable>
 	</PropertyGroup>
 	<Choose>
 		<When Condition="'$(RELEASE_VERSION)' == ''">
-			<PropertyGroup><FloatVersion>0.0.1-alpha.*</FloatVersion></PropertyGroup>
+			<PropertyGroup><Version>0.0.1-alpha.0</Version></PropertyGroup>
 		</When>
 		<Otherwise>
-			<PropertyGroup><FloatVersion>$(RELEASE_VERSION)</FloatVersion></PropertyGroup>
+			<PropertyGroup><Version>$(RELEASE_VERSION)</Version></PropertyGroup>
 		</Otherwise>
 	</Choose>
 	
 	<PropertyGroup>	
 		<PropsPath>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))</PropsPath>
 		<SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
-		<AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
+		<AccelerateBuildsInVisualStudio>false</AccelerateBuildsInVisualStudio>
 		
 		<Company>Tyts</Company>
 		<Authors>Tyts</Authors>
 		<Owners>Tyts</Owners>
 		<Copyright>Copyright © Tyts $([System.DateTime]::Now.ToString(yyyy))</Copyright>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
 
 		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
 		<WarningsNotAsErrors>612,618</WarningsNotAsErrors>
 		<GenerateDocumentationFile>false</GenerateDocumentationFile>
 		<NoWarn>$(NoWarn);CS1591</NoWarn>
+		
 		<DebugType>portable</DebugType>
+		<!--NO way to debug PackageReference-ed projects even if package contains symbols (.pdb) or symbols are embedded-->
+		<!--<DebugType>embedded</DebugType>-->
+		<!--<AllowedOutputExtensionsInPackageBuildOutputFolder Condition=" '$(Configuration)' == 'Debug' ">$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>-->
+		
 		<GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
 		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
 		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
@@ -62,11 +62,45 @@
 		<!--<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>-->
 		<!-- <EnableNETAnalyzers>true</EnableNETAnalyzers> -->
 
-	</PropertyGroup>	
-	
+	</PropertyGroup>
+
+	<Choose>
+		<When Condition="'$(IsPackable)' == 'true'">
+			<PropertyGroup>
+				<PackageLicenseExpression>MIT</PackageLicenseExpression>
+				<PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
+				<GeneratePackageOnBuild Condition="'$(UseProjectReference)' == 'true'">false</GeneratePackageOnBuild>
+				<PackageReadmeFile>README.md</PackageReadmeFile>
+				<PackageIcon>icon.jpg</PackageIcon>
+				<!--
+				Ignore DOESN'T WORK
+				<RestoreIgnoreFailedSources>true</RestoreIgnoreFailedSources>
+				<IgnoreFailedSources>true</IgnoreFailedSources>
+				<NoWarn>@(NoWarn);NU1801</NoWarn>
+				-->
+			</PropertyGroup>
+			<ItemGroup>
+				<None Include="$(SolutionDir)/README.md" Pack="true" PackagePath="\" />
+				<None Include="$(SolutionDir)/icon.jpg" Pack="true" PackagePath="\" />
+			</ItemGroup>
+		</When>
+		<Otherwise>
+
+		</Otherwise>
+	</Choose>
+
+
+
+
 	<!--<ItemGroup>
 		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
 			<_Parameter1>... .Tests</_Parameter1>
 		</AssemblyAttribute>
 	</ItemGroup>-->
+
+	<!--clear local Nuget cache-->
+	<Target Name="DeleteLocalCache" BeforeTargets="Pack">
+		<!--<Message Importance="High" Text="$(NugetPackageRoot)/$(PackageId.ToLower())/$(Version)" />-->
+		<RemoveDir Directories="$(NugetPackageRoot)/$(PackageId.ToLower())/$(Version)"/>
+	</Target>
 </Project>

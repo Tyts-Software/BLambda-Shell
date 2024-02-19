@@ -2,8 +2,8 @@
 	<Import Project="..\..\build\props\Blazor.props" />
 
 	<PropertyGroup>
+		<IsPackable>true</IsPackable>
 		<Product>BLambda.Shell Demo Module</Product>
-		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 	</PropertyGroup>
 
 
@@ -19,13 +19,13 @@
 			<ItemGroup>
 				<PackageReference Include="Tyts.BLambda.Blazor.Wasm.Components" />
 
-				<PackageReference Include="Tyts.BLambda.Shell.Shared"  VersionOverride="$(FloatVersion)" />
+				<PackageReference Include="Tyts.BLambda.Shell.Shared" />
 			</ItemGroup>
 		</Otherwise>
 	</Choose>
 
 
 	<ItemGroup>
-	  
+	  <Folder Include="wwwroot\" />
 	</ItemGroup>
 </Project>

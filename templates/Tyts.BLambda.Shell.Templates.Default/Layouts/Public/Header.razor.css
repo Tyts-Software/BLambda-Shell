@@ -1,0 +1,51 @@
+﻿header { 
+    grid-area: header;
+    min-height: var(--logo-height);
+    background-color: var(--fill-color);
+    overflow: hidden;
+    padding-right:var(--one-dup);
+    z-index: 32;
+}
+
+/*logo*/
+::deep figure {
+    /* max-width: var(--logo-width);
+    max-height: var(--logo-height);*/
+    margin: 0 0 0 0;
+    padding-left: var(--one-dup);
+    filter: saturate(0) grayscale(1) brightness(.7) contrast(1000%) invert(var(--base-layer-luminance));
+    z-index: 0;
+}
+
+::deep svg{
+    width: var(--logo-width);
+    height: var(--logo-height);
+}
+
+::deep svg > g {
+    transform: scale(0.80);
+}
+
+
+/* next to the logo */
+/*auth*/
+::deep .toolbar {
+    width: calc(var(--sidebar-width) - var(--logo-width)- var(--one-dup));
+    display: flex;
+    justify-content: flex-end;
+    margin-left: var(--one-dup);
+    padding: calc(var(--one-dup)*2) 0 var(--half-dup) 0;
+}
+
+::deep .account-button > .button {
+    font-weight:bolder;
+}
+
+
+ /*not auth*/
+::deep h1 {
+    margin: 0;
+    padding-left: var(--one-dup);
+    font-size: var(--type-ramp-plus-3-font-size);
+    line-height: var(--type-ramp-plus-1-line-height);
+}

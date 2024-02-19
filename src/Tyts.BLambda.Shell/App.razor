@@ -4,15 +4,15 @@
 @using Microsoft.AspNetCore.WebUtilities;
 @using Microsoft.Extensions.Logging;
 @using Microsoft.Extensions.Options;
-@using Tyts.BLambda.Blazor.Application.Module;
+@using Tyts.BLambda.Blazor.Application.Module
 @using Tyts.BLambda.Blazor.Application.Template
-@using Tyts.BLambda.Blazor.Theme;
-@using Tyts.BLambda.Shell.Authentication;
+@using Tyts.BLambda.Shell.Templates.Default.Pages
+
 
 <FluentDesignTheme StorageName="theme" />
 <Router AppAssembly="@typeof(App).Assembly" AdditionalAssemblies="@assemblies">
     <Found Context="routeData">
-        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@Template.Current.GetLayout(isAuthenticated)">
+        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@currenLayout">
             <Authorizing>
                 <text>@ProcessingMessage</text>
             </Authorizing>
@@ -30,13 +30,17 @@
                 }
             </NotAuthorized>                
         </AuthorizeRouteView>
-        @*<FocusOnNavigate RouteData="@routeData" Selector="h1" />*@
     </Found>
     <NotFound>
-        <PageTitle>Not found</PageTitle>
-        <LayoutView Layout="@Template.Current.GetLayout(isAuthenticated)">
+        @*
+        ...whole app reloads
+        and yes they desided it 'as by design'
+        https://github.com/dotnet/aspnetcore/issues/23100 
+        *@
+
+        <_404>
             <p role="alert">@(modulesLoaded ? "Sorry, there's nothing at this address." : "Loading modules..")</p>
-        </LayoutView>
+        </_404>
     </NotFound>
 </Router>
 
@@ -58,6 +62,8 @@
     bool isLoggingOut = false;
     bool modulesLoaded = false;
 
+    Type currenLayout = default!;
+
     string ProcessingMessage => isLoggingOut ? "Please wait, we are logging out..." : "Please wait, we are authorizing...";
 
     [Parameter]
@@ -65,9 +71,12 @@
 
 
     protected override async Task OnInitializedAsync()
-    {
+    {    
         var state = await AuthStateProvider.GetAuthenticationStateAsync();
-        isAuthenticated = state.User.Identity?.IsAuthenticated ?? false;
+        isAuthenticated = state.User.Identity?.IsAuthenticated ?? false;        
+
+        currenLayout = await Template.GetLayout();
+
 
         var loggedOutPath = Options.Get(Microsoft.Extensions.Options.Options.DefaultName).AuthenticationPaths.LogOutSucceededPath;
         isLoggingOut = Navigation.Uri.Contains(loggedOutPath, StringComparison.OrdinalIgnoreCase);
@@ -81,7 +90,7 @@
     {
         if (firstRender)
         {
-            await ModuleService.EnsureNotLazyModulesLoaded();
+            await ModuleService.EnsureNotLazyModulesConfigured();
             modulesLoaded = true;
         }        
     }
@@ -100,8 +109,8 @@
     {        
         //TODO: instead detect auth state changing in another tab
 
-        //var state = await AuthStateProvider.GetAuthenticationStateAsync();
-        //var newIsAuthenticated = state.User.Identity?.IsAuthenticated ?? false;
+        // var state = await AuthStateProvider.GetAuthenticationStateAsync();
+        // var newIsAuthenticated = state.User.Identity?.IsAuthenticated ?? false;
         var newIsAuthenticated = CognitoHelper.IdentityIsAuthenticated();
 
         if (isAuthenticated != newIsAuthenticated)
@@ -128,6 +137,8 @@
     {
         var state = await getAuthenticationState;
         isAuthenticated = state.User.Identity?.IsAuthenticated ?? false;
+
+        currenLayout = await Template.GetLayout();
     }
 
     async void App_ModuleLoaded(string name)

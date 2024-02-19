@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Tyts.BLambda.Blazor.Application.Module;
 using Tyts.BLambda.Shell.Modules.Demo.Notifier;
 
@@ -17,14 +19,6 @@ namespace Tyts.BLambda.Shell.Modules.Demo;
 
 public sealed class Module : IStartup
 {
-    //[ModuleInitializer]
-    //internal static void Initialize()
-    //{
-    //    //var serviceProvider = new ServiceCollection()
-    //    //    .AddNotifierFeature()
-    //    //    .BuildServiceProvider();
-    //}
-
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddNotifierFeature();

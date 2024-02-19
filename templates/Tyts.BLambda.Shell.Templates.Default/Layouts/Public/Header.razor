@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.Extensions.Options
+
+<header class="flex nowrap center" role="banner">
+    <Logo/>
+    <FlexBox Class="box" hidden="@collapsed"
+             Orientation="Orientation.Vertical" HorizontalGap="0" VerticalGap="0"
+             HorizontalAlignment="FlexBoxHorizontalAlignment.Right"
+             VerticalAlignment="FlexBoxVerticalAlignment.Center"
+             >
+        
+        <div class="toolbar">
+            <Slot TSlot=Slots.HeaderToolbarSlot />
+        </div>
+        <div class="title">
+            <Slot TSlot=Slots.HeaderTitleSlot>
+                <h1>BLambda Shell</h1>
+            </Slot>
+        </div>               
+
+    </FlexBox>
+</header>
+
+@implements IDisposable
+
+@inject INavMenuService NavMenu
+@inject ILogger<Header> logger
+
+@code {
+    bool collapsed => !NavMenu.IsExpanded;
+
+    protected override void OnInitialized()
+    {
+        NavMenu.Expanded += NavMenu_Toggled;
+    }
+
+    async Task NavMenu_Toggled(bool open)
+    {
+        await InvokeAsync(StateHasChanged);
+    }
+
+    void IDisposable.Dispose()
+    {
+        NavMenu.Expanded -= NavMenu_Toggled;
+    }
+}
