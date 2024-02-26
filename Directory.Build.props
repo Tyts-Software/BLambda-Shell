@@ -1,6 +1,6 @@
 <Project>
 	<PropertyGroup>
-		<UseBLambdaProjectReference>false</UseBLambdaProjectReference>
+		<UseBLambdaProjectReference>true</UseBLambdaProjectReference>
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
 	<PropertyGroup>

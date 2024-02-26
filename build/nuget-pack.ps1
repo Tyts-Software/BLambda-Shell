@@ -5,10 +5,10 @@ param (
 
 
 ####### FOR Dev
-### .\nuget-pack.ps1 -c Debug
+### .\build\nuget-pack.ps1 -c Debug
 
 ####### FOR Prod
-####### .\nuget-pack.ps1 -v 0.0.0.1
+####### .\build\nuget-pack.ps1 -v 0.0.1-alpha.0
 
 
 #colored output helper
@@ -27,7 +27,7 @@ Console "Configuration: $configuration"
 $confirmation = Read-Host "Really? [y]"
 if ($confirmation -eq 'y') { 
 
-	$path =  Resolve-Path ".."
+	$path =  Resolve-Path "."
 	Push-Location -Path $path
 	
 	dotnet pack --force -c $configuration 

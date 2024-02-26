@@ -42,7 +42,6 @@
     {
         if (firstRender)
         {
-            await ModuleService.EnsureNotLazyModulesConfigured();
             foreach(var m in await ModuleService.GetModules())
             {
                 assemblies.TryAdd(m.Name, m.Assembly!);
