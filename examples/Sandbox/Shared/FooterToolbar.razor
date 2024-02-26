@@ -1,0 +1,25 @@
+﻿
+@attribute [Slots.FooterToolbarSlot]
+
+@inject IFlyoutService Flayout
+@code {
+
+}
+
+
+<FluentButton Appearance="Appearance.Stealth" @onclick="()=>Flayout.LeftSidebar.Toggle()">
+    <FluentIcon Value="@(new Icons.Regular.Size24.LayoutColumnOneThirdLeft())" />
+</FluentButton>
+
+
+<FluentButton Appearance="Appearance.Stealth">
+    <FluentIcon Value="@(new Icons.Regular.Size24.BorderNone())" />
+</FluentButton>
+
+<FluentButton Appearance="Appearance.Stealth">
+    <FluentIcon Value="@(new Icons.Regular.Size24.BorderNone())" />
+</FluentButton>
+
+<FluentButton Appearance="Appearance.Stealth" @onclick="() => Flayout.RightSidebar.Toggle()">
+    <FluentIcon Value="@(new Icons.Regular.Size24.LayoutColumnOneThirdRight())" />
+</FluentButton>

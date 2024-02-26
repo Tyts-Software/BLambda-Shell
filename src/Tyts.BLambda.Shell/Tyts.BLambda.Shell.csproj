@@ -1,65 +1,26 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 	<Import Project="..\..\build\props\Blazor.props" />
-	
-	<ItemGroup>
-		<EmbeddedResource Include="wwwroot\appsettings.Development.secrets.json">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</EmbeddedResource>
-		<EmbeddedResource Include="wwwroot\appsettings.secrets.json">
-			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
-		</EmbeddedResource>
-		<Content Remove="bundleconfig.json" />
-		<Content Remove="wwwroot\appsettings.Development.secrets.json" />
-		<Content Remove="wwwroot\appsettings.secrets.json" />
-	</ItemGroup>
-	
-		
-	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" PrivateAssets="all" />
-		<PackageReference Include="Microsoft.AspNetCore.WebUtilities" />
-	</ItemGroup>
+	<PropertyGroup>
+		<RootNamespace>Tyts.BLambda.Shell</RootNamespace>
 
-
+		<IsPackable>true</IsPackable>
+		<Description>BLambda Shell Shared</Description>
+		<PackageTags>BLambda, BLambda Shell, Blazor WASM</PackageTags>
+	</PropertyGroup>
+	
 	<Choose>
-		<When Condition="'$(UseProjectReference)' == 'true'">
+		<When Condition="'$(UseBLambdaProjectReference)' == 'true'">
 			<ItemGroup>
 				<ProjectReference Include="..\..\..\blambda\src\UI\Tyts.BLambda.Blazor.Wasm.Components\Tyts.BLambda.Blazor.Wasm.Components.csproj" />
-
-				<!--Shell-->
-				<ProjectReference Include="..\Tyts.BLambda.Shell.Shared\Tyts.BLambda.Shell.Shared.csproj" />
-				<ProjectReference Include="..\Tyts.BLambda.Shell.Cognito\Tyts.BLambda.Shell.Cognito.csproj" />
-				<ProjectReference Include="..\..\templates\Tyts.BLambda.Shell.Templates.Default\Tyts.BLambda.Shell.Templates.Default.csproj" />
-
-				<!--Shell Modules-->
-				<ProjectReference Include="..\..\modules\Tyts.BLambda.Shell.Modules.HelloWorld\Tyts.BLambda.Shell.Modules.HelloWorld.csproj" />
-				<ProjectReference Include="..\..\modules\Tyts.BLambda.Shell.Modules.Demo\Tyts.BLambda.Shell.Modules.Demo.csproj" />
+				<ProjectReference Include="..\..\..\blambda\src\UI\Tyts.BLambda.Blazor.Wasm.Auth.Cognito\Tyts.BLambda.Blazor.Wasm.Auth.Cognito.csproj" />
 			</ItemGroup>
 		</When>
 		<Otherwise>
 			<ItemGroup>
 				<PackageReference Include="Tyts.BLambda.Blazor.Wasm.Components" />
-
-				<!--Shell-->
-				<PackageReference Include="Tyts.BLambda.Shell.Shared" />
-				<PackageReference Include="Tyts.BLambda.Shell.Cognito" />
-				<PackageReference Include="Tyts.BLambda.Shell.Templates.Default" />
-
-				<!--Shell Modules-->
-				<PackageReference Include="Tyts.BLambda.Shell.Modules.HelloWorld" />
-				<PackageReference Include="Tyts.BLambda.Shell.Modules.Demo" />
+				<PackageReference Include="Tyts.BLambda.Blazor.Wasm.Auth.Cognito" />
 			</ItemGroup>
 		</Otherwise>
 	</Choose>
-
-
-	<ItemGroup>
-		<BlazorWebAssemblyLazyLoad Include="Tyts.BLambda.Shell.Modules.HelloWorld.wasm" />
-		<BlazorWebAssemblyLazyLoad Include="Tyts.BLambda.Shell.Modules.Demo.wasm" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Include="bundleconfig.json" />
-	</ItemGroup>
 
 </Project>

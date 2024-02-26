@@ -1,0 +1,13 @@
+[
+    {
+        "outputFileName": "wwwroot/js/shell.min.js",
+        "inputFiles": [
+            ".Assets/Scripts/Lib/Pako/pako.min.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true,
+            "commentMode": "important"
+        }
+    }
+]

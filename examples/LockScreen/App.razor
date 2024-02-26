@@ -1,0 +1,62 @@
+﻿@using System.Reflection
+@using Tyts.BLambda.Blazor.Application.Template
+@using Tyts.BLambda.Shell.Templates.Default.Pages
+
+@inject ITemplateService Template
+@inject AuthenticationStateProvider AuthStateProvider
+
+@implements IDisposable
+@code{
+    Assembly[] additionalAssemblies = new[] 
+    { 
+        typeof(Tyts.BLambda.Shell.Startup).Assembly,
+        typeof(Tyts.BLambda.Blazor.Auth.Cognito.Startup).Assembly 
+    };
+    Type currenLayout = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        currenLayout = await Template.GetLayout();
+
+        AuthStateProvider.AuthenticationStateChanged += App_AuthenticationStateChanged;
+    }
+
+    async void App_AuthenticationStateChanged(Task<AuthenticationState> getAuthenticationState)
+    {
+        currenLayout = await Template.GetLayout();
+    }
+
+    void IDisposable.Dispose()
+    {
+        AuthStateProvider.AuthenticationStateChanged -= App_AuthenticationStateChanged;
+    }
+}
+
+<Router AppAssembly="@typeof(App).Assembly" AdditionalAssemblies="@additionalAssemblies">
+    <Found Context="routeData">
+        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@currenLayout">
+            <Authorizing>
+                <div id="loader">
+                    <div class="logo"></div>
+                </div>
+            </Authorizing>
+            <NotAuthorized>
+                @if (context.User.Identity?.IsAuthenticated != true)
+                {
+                    <_401_Unauthorized_ />
+                }
+                else
+                {
+                    <_403_Forbidden_ />
+                }
+            </NotAuthorized>
+        </AuthorizeRouteView>
+        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+    </Found>
+    <NotFound>
+        <PageTitle>Not found</PageTitle>
+        <LayoutView Layout="@Template.Current.DefaultLayout">
+            <_404_NotFound_ />
+        </LayoutView>
+    </NotFound>
+</Router>

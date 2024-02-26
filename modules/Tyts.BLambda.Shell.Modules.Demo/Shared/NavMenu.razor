@@ -20,22 +20,19 @@
         StateHasChanged();
     }
 
-    private Appearance SetAppearance(string location) => 
-        (location == target) 
-            ? Appearance.Accent 
-            : Appearance.Stealth;
+    private string SetSelected(string location) => (location == target).ToString().ToLowerInvariant();
 }
 
 
 <FluentAccordionItem Expanded="true" Heading="Demo Module">
     <FluentIcon Slot="start" Value="@(new Icons.Regular.Size24.Cube())" />
 
-    <FluentAnchor Href="@DashboardPage.PageUrl" Appearance=@SetAppearance(DashboardPage.PageUrl)>
+    <FluentAnchor Href="@DashboardPage.PageUrl" Appearance="@Appearance.Stealth" aria-selected=@SetSelected(DashboardPage.PageUrl)>
         Dashboard
         <FluentIcon Slot="start" Value="@(new Icons.Regular.Size24.BoardSplit())" />
     </FluentAnchor>
     
-    <FluentAnchor Href="@NotificationsPage.PageUrl" Appearance=@SetAppearance(NotificationsPage.PageUrl)>
+    <FluentAnchor Href="@NotificationsPage.PageUrl" Appearance="@Appearance.Stealth" aria-selected=@SetSelected(NotificationsPage.PageUrl)>
         Notifications
         <FluentIcon Slot="start" Value="@(new Icons.Regular.Size24.NotebookSync())" />
     </FluentAnchor>

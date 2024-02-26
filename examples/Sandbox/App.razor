@@ -1,0 +1,137 @@
+﻿@using System.Reflection
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.AspNetCore.WebUtilities
+@using Microsoft.Extensions.Options
+@using Tyts.BLambda.Blazor.Application.Module
+@using Tyts.BLambda.Blazor.Application.Template
+@using Tyts.BLambda.Shell.Templates.Default.Pages
+
+@inject IModulService ModuleService
+@inject ITemplateService Template
+@inject ILogger<App> Logger
+@inject NavigationManager Navigation
+@inject IOptionsSnapshot<RemoteAuthenticationOptions<ApiAuthorizationProviderOptions>> Options
+@inject AuthenticationStateProvider AuthStateProvider
+@inject CognitoHelper CognitoHelper
+@*RemoteAuthenticationService*@ 
+
+@implements IDisposable
+@code {
+    Dictionary<string, Assembly> assemblies = new();
+    bool isAuthenticated = false;
+
+    Type currenLayout = default!;    
+
+    [Parameter]
+    public string ReturnUrl { get; set; } = "/";
+
+
+    protected override async Task OnInitializedAsync()
+    {    
+        var state = await AuthStateProvider.GetAuthenticationStateAsync();
+        isAuthenticated = state.User.Identity?.IsAuthenticated ?? false;        
+
+        currenLayout = await Template.GetLayout();
+
+        AuthStateProvider.AuthenticationStateChanged += App_AuthenticationStateChanged;
+        ModuleService.ModuleLoaded += App_ModuleLoaded;
+        Navigation.LocationChanged += App_LocationChanged;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await ModuleService.EnsureNotLazyModulesConfigured();
+            foreach(var m in await ModuleService.GetModules())
+            {
+                assemblies.TryAdd(m.Name, m.Assembly!);
+            }
+        }        
+    }
+
+    void App_LocationChanged(object? sender, LocationChangedEventArgs args)
+    {        
+        //TODO: instead detect auth state changing in another tab
+
+        // var state = await AuthStateProvider.GetAuthenticationStateAsync();
+        // var newIsAuthenticated = state.User.Identity?.IsAuthenticated ?? false;
+        var newIsAuthenticated = CognitoHelper.IdentityIsAuthenticated();
+
+        if (isAuthenticated != newIsAuthenticated)
+        {
+            var isAuthenticating = Navigation.Uri.StartsWith($"{Navigation.BaseUri}authentication/", StringComparison.OrdinalIgnoreCase);
+            if (!newIsAuthenticated && !isAuthenticating) // was logged out implicitly
+            {
+                var logOutPath = Options.Get(Microsoft.Extensions.Options.Options.DefaultName).AuthenticationPaths.LogOutSucceededPath;
+                var returnUrl = Uri.EscapeDataString(Navigation.ToBaseRelativePath(Navigation.Uri));
+                if (!string.IsNullOrEmpty(returnUrl))
+                {
+                    logOutPath = QueryHelpers.AddQueryString(logOutPath, "returnUrl", returnUrl);
+                }
+
+                Navigation.NavigateTo(logOutPath, replace: true);
+            }
+
+            isAuthenticated = newIsAuthenticated;
+            StateHasChanged();
+        }
+    }
+
+    async void App_AuthenticationStateChanged(Task<AuthenticationState> getAuthenticationState)
+    {
+        var state = await getAuthenticationState;
+        isAuthenticated = state.User.Identity?.IsAuthenticated ?? false;
+
+        currenLayout = await Template.GetLayout();
+    }
+
+    async void App_ModuleLoaded(string name)
+    {
+        var assembly = (await ModuleService.GetModule(name)).Assembly;
+        if (assembly is not null && assemblies.TryAdd(name, assembly))
+        {
+            StateHasChanged();
+        }
+    }
+
+    void IDisposable.Dispose()
+    {
+        ModuleService.ModuleLoaded -= App_ModuleLoaded;
+        AuthStateProvider.AuthenticationStateChanged -= App_AuthenticationStateChanged;
+        Navigation.LocationChanged -= App_LocationChanged;
+    }
+}
+
+<FluentDesignTheme StorageName="theme" />
+<Router AppAssembly="@typeof(App).Assembly" AdditionalAssemblies="@assemblies.Values">
+    <Found Context="routeData">
+        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@currenLayout">
+            <Authorizing>
+                <div id="loader">
+                    <div class="logo"></div>
+                </div>
+            </Authorizing>
+            <NotAuthorized>
+                @if (!isAuthenticated) //context.User.Identity?.IsAuthenticated != true
+                {
+                    <_401_Unauthorized_ />
+                }
+                else
+                {
+                    <_403_Forbidden_ />
+                }
+            </NotAuthorized>
+        </AuthorizeRouteView>
+    </Found>
+    <NotFound>
+        @*
+        ...whole app reloads
+        and yes they have decided 'as by design'
+        https://github.com/dotnet/aspnetcore/issues/23100
+        *@
+        <LayoutView Layout="@currenLayout">
+            <_404_NotFound_ />
+        </LayoutView>
+    </NotFound>
+</Router>

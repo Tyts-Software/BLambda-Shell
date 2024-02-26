@@ -11,18 +11,9 @@
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" PrivateAssets="all" />
 	</ItemGroup>
 
-	
-	<Choose>
-		<When Condition="'$(UseProjectReference)' == 'true'">
-			<ItemGroup>
-				<ProjectReference Include="..\..\templates\Tyts.BLambda.Shell.Templates.Default\Tyts.BLambda.Shell.Templates.Default.csproj" />
-			</ItemGroup>
-		</When>
-		<Otherwise>
-			<ItemGroup>
-				<PackageReference Include="Tyts.BLambda.Shell.Templates.Default" />
-			</ItemGroup>
-		</Otherwise>
-	</Choose>
+
+	<ItemGroup>
+		<PackageReference Include="Tyts.BLambda.Shell.Templates.Default" />
+	</ItemGroup>
 
 </Project>

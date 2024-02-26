@@ -1,16 +1,13 @@
 <Project>
 	<PropertyGroup>
-		<UseProjectReference>true</UseProjectReference>
+		<UseBLambdaProjectReference>false</UseBLambdaProjectReference>
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
-	<Choose>
-		<When Condition="'$(RELEASE_VERSION)' == ''">
-			<PropertyGroup><Version>0.0.1-alpha.0</Version></PropertyGroup>
-		</When>
-		<Otherwise>
-			<PropertyGroup><Version>$(RELEASE_VERSION)</Version></PropertyGroup>
-		</Otherwise>
-	</Choose>
+	<PropertyGroup>
+		<Version Condition="'$(RELEASE_VERSION)' != ''">$(RELEASE_VERSION)</Version>
+		<VersionPrefix Condition="'$(RELEASE_VERSION)' == ''">0.0.1</VersionPrefix>
+		<VersionSuffix Condition="'$(RELEASE_VERSION)' == ''">alpha.0</VersionSuffix>
+	</PropertyGroup>
 	
 	<PropertyGroup>	
 		<PropsPath>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))</PropsPath>
@@ -21,6 +18,10 @@
 		<Authors>Tyts</Authors>
 		<Owners>Tyts</Owners>
 		<Copyright>Copyright © Tyts $([System.DateTime]::Now.ToString(yyyy))</Copyright>
+		
+		<GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
 
 		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
 		<WarningsNotAsErrors>612,618</WarningsNotAsErrors>
@@ -32,30 +33,12 @@
 		<!--<DebugType>embedded</DebugType>-->
 		<!--<AllowedOutputExtensionsInPackageBuildOutputFolder Condition=" '$(Configuration)' == 'Debug' ">$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>-->
 		
-		<GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-		<GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-		<GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-
-
 		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<NeutralLanguage>en</NeutralLanguage>
 		
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-
-		<!-- Common NuGet properties-->
-		<!--<NeutralLanguage>en</NeutralLanguage>
-		<PackageProjectUrl>https://github.com/tyts-software/blambda</PackageProjectUrl>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<RepositoryUrl>https://github.com/tyts-software/blambda</RepositoryUrl>
-		<RepositoryType>git</RepositoryType>
-		<PublishRepositoryUrl>true</PublishRepositoryUrl>-->
-		
-		<!--This is used to generate symbol package for Source Link-->
-
-		<!-- This is used by GitHub Repository to find which repository should contain the package when updloaded -->
-
 
 		<!-- Enable code style analysis -->
 		<RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
@@ -64,30 +47,31 @@
 
 	</PropertyGroup>
 
-	<Choose>
-		<When Condition="'$(IsPackable)' == 'true'">
-			<PropertyGroup>
-				<PackageLicenseExpression>MIT</PackageLicenseExpression>
-				<PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
-				<GeneratePackageOnBuild Condition="'$(UseProjectReference)' == 'true'">false</GeneratePackageOnBuild>
-				<PackageReadmeFile>README.md</PackageReadmeFile>
-				<PackageIcon>icon.jpg</PackageIcon>
-				<!--
-				Ignore DOESN'T WORK
-				<RestoreIgnoreFailedSources>true</RestoreIgnoreFailedSources>
-				<IgnoreFailedSources>true</IgnoreFailedSources>
-				<NoWarn>@(NoWarn);NU1801</NoWarn>
-				-->
-			</PropertyGroup>
-			<ItemGroup>
-				<None Include="$(SolutionDir)/README.md" Pack="true" PackagePath="\" />
-				<None Include="$(SolutionDir)/icon.jpg" Pack="true" PackagePath="\" />
-			</ItemGroup>
-		</When>
-		<Otherwise>
 
-		</Otherwise>
-	</Choose>
+	<!-- Common NuGet properties-->
+	<PropertyGroup>		
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageIcon>icon.jpg</PackageIcon>
+		<!--
+		Ignore DOESN'T WORK
+		<RestoreIgnoreFailedSources>true</RestoreIgnoreFailedSources>
+		<IgnoreFailedSources>true</IgnoreFailedSources>
+		<NoWarn>@(NoWarn);NU1801</NoWarn>
+		-->
+		
+		<PackageProjectUrl>https://tyts.com.ua</PackageProjectUrl>		
+		<RepositoryUrl>https://github.com/tyts-software/blambda-shell</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="$(SolutionDir)/README.md" Pack="true" PackagePath="\" />
+		<None Include="$(SolutionDir)/icon.jpg" Pack="true" PackagePath="\" />
+	</ItemGroup>
+	
 
 
 

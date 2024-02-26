@@ -1,0 +1,41 @@
+﻿@page "/401"
+@page "/401-unauthorized"
+@page "/401.html"
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.Extensions.Options
+@using Tyts.BLambda.Blazor.Application.Module
+
+@inject IModulService ModuleService
+@inject NavigationManager Navigation
+@inject IOptionsSnapshot<RemoteAuthenticationOptions<ApiAuthorizationProviderOptions>> Options
+@code {
+    string header = "Welcome!";
+
+    [Parameter]
+    public string ReturnUrl { get; set; } = "/";
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    
+    void LogIn()
+    {
+        var loginPath = Options.Get(Microsoft.Extensions.Options.Options.DefaultName).AuthenticationPaths.LogInPath;
+        Navigation.NavigateToLogin(loginPath, new InteractiveRequestOptions
+        {
+            ReturnUrl = ReturnUrl,
+            Interaction = InteractionType.SignIn
+        });
+    }
+}
+
+<PageTitle>@header</PageTitle>
+@if (ChildContent is not null)
+{
+    @ChildContent
+}
+else
+{
+    <p>Welcome!</p>
+    <FluentButton Appearance="Appearance.Outline" @onclick="LogIn">Login</FluentButton>
+}

@@ -1,0 +1,54 @@
+﻿@using System.Reflection
+@using Tyts.BLambda.Blazor.Application.Module
+@using Tyts.BLambda.Blazor.Application.Template
+
+@inject ITemplateService Template
+@inject IModulService ModuleService
+@implements IDisposable
+@code{
+    Dictionary<string, Assembly> assemblies = new();
+
+    protected override void OnInitialized()
+    {        
+        ModuleService.ModuleLoaded += App_ModuleLoaded;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            foreach (var m in await ModuleService.GetModules())
+            {
+                assemblies.TryAdd(m.Name, m.Assembly!);
+            }
+        }
+    }
+
+    async void App_ModuleLoaded(string name)
+    {
+        var assembly = (await ModuleService.GetModule(name)).Assembly;
+        if (assembly is not null && assemblies.TryAdd(name, assembly))
+        {
+            StateHasChanged();
+        }
+    }
+
+    void IDisposable.Dispose()
+    {
+        ModuleService.ModuleLoaded -= App_ModuleLoaded;
+    }
+}
+
+
+<Router AppAssembly="@typeof(App).Assembly" AdditionalAssemblies="@assemblies.Values">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@Template.Current.DefaultLayout" />
+        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+    </Found>
+    <NotFound>
+        <PageTitle>Not found</PageTitle>
+        <LayoutView Layout="@Template.Current.DefaultLayout">
+            <p role="alert">Sorry, there's nothing at this address.</p>
+        </LayoutView>
+    </NotFound>
+</Router>

@@ -1,0 +1,22 @@
+﻿@page "/403"
+@page "/403-forbidden"
+@page "/403.html"
+@using Tyts.BLambda.Blazor.Application.Module
+
+@inject IModulService ModuleService
+@code {
+    string header = "Forbidden";
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}
+
+<PageTitle>@header</PageTitle>
+@if (ChildContent is not null)
+{
+    @ChildContent
+}
+else
+{
+    <p role="alert">You are not authorized to access this resource.</p>
+}

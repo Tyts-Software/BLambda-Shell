@@ -1,0 +1,91 @@
+﻿
+@attribute [Slots.NavMenuSlot]
+@inject NavigationManager NavigationManager
+@inject ILogger<NavMenu> Logger
+@inject INavMenuService NavMenuService
+@code {
+    private string? target;
+    bool expanded => NavMenuService.IsExpanded;
+
+    protected override void OnInitialized()
+    {
+        NavigationManager.LocationChanged += NavigationManager_LocationChanged;
+        NavMenuService.Expanded += NavMenu_WidthToggled;
+    }
+
+    async Task NavMenu_WidthToggled(bool open)
+    {
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private void NavigationManager_LocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        Uri uri = new Uri(e.Location);
+        target = uri.PathAndQuery;
+        StateHasChanged();
+    }
+
+    private string SetSelected(string location) => (location == target).ToString().ToLowerInvariant();
+}
+
+<FluentAccordionItem Expanded="true" Heading="Auth Roles">
+    <IconWithBadge BadgeHidden="@expanded" Slot="start" Value="@(new Icons.Regular.Size24.PeopleCommunity())" />
+    <FluentBadge Appearance="Appearance.Accent" slot="end"
+                 OnClick="@(()=> Logger.LogInformation("Badge clicked"))" hidden="@(!expanded)">New</FluentBadge>
+
+    @if (this.IsDebug())
+    {
+        <FluentButton OnClick="@(() => Logger.LogDebug("ATTENTION: Debugging is here"))" Appearance="Appearance.Stealth">
+            Visible in Debug Only
+            <FluentIcon Slot="start" Value="@(new Icons.Regular.Size24.Bug())" />
+        </FluentButton>
+    }
+
+    <FluentAnchor Href="/this-path-does-not-exists" Appearance="@Appearance.Stealth" aria-selected="@SetSelected("/this-path-does-not-exists")">
+        Go to Doesn't Exists
+        <FluentIcon Slot="start" Value="@(new Icons.Regular.Size24.CalendarQuestionMark())" />
+    </FluentAnchor>
+
+    <AuthorizeView>
+        <NotAuthorized>
+            <FluentAnchor Href="/classified" Appearance="@Appearance.Stealth" aria-selected="@SetSelected("/classified")">
+                Go to Authorized
+                <FluentIcon Slot="start" Value="@(new Icons.Regular.Size24.PersonProhibited())" />
+            </FluentAnchor>
+        </NotAuthorized>
+
+        <Authorized>
+            <FluentAnchor Href="/classified" Appearance="@Appearance.Stealth" aria-selected="@SetSelected("/classified")">
+                @context.User.Identity?.Name
+                <FluentIcon Slot="start" Value="@(new Icons.Regular.Size24.Person())" />
+            </FluentAnchor>
+
+            <AuthorizeView Roles="@Roles.ADMIN" Context="innerContext">
+                <FluentAnchor Href="/classified" Appearance="@Appearance.Stealth" aria-selected="@SetSelected("/classified")">
+                    Admin Menu Item
+                    <FluentIcon Slot="start" Value="@(new Icons.Regular.Size24.PersonLock())" />
+                    <FluentBadge slot="end" Appearance="Appearance.Neutral" hidden="@(!expanded)">
+                        @Roles.ADMIN
+                    </FluentBadge>
+                </FluentAnchor>
+            </AuthorizeView>
+
+            <AuthorizeView Roles="@Roles.EDITOR" Context="innerContext">
+                <FluentAnchor Href="/classified" Appearance="@Appearance.Stealth" aria-selected="@SetSelected("/classified")">
+                    Editor Menu Item
+                    <FluentIcon Slot="start" Value="@(new Icons.Regular.Size24.PersonEdit())" />
+                    <FluentBadge slot="end" Appearance="Appearance.Neutral" hidden="@(!expanded)">
+                        @Roles.EDITOR
+                    </FluentBadge>
+                </FluentAnchor>
+            </AuthorizeView>
+
+            <AuthorizeView Roles="NOT_IN_ROLE, OR_ANOTHER_ROLE" Context="innerContext">
+                <FluentAnchor Href="" Appearance="Appearance.Stealth">
+                    SHOULD be hidden for user: @innerContext.User
+                </FluentAnchor>
+            </AuthorizeView>
+        </Authorized>
+    </AuthorizeView>
+
+</FluentAccordionItem>

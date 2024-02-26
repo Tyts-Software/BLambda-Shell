@@ -1,0 +1,29 @@
+﻿@using System.Reflection
+@using Tyts.BLambda.Blazor.Application.Template
+
+@inject ITemplateService Template
+
+@code{
+    Assembly[] additionalAssemblies = new[] 
+    { 
+        typeof(Tyts.BLambda.Shell.Startup).Assembly,
+        typeof(Tyts.BLambda.Blazor.Auth.Cognito.Startup).Assembly 
+    };
+}
+
+<Router AppAssembly="@typeof(App).Assembly" AdditionalAssemblies="@additionalAssemblies">
+    <Found Context="routeData">
+        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@Template.Current.DefaultLayout">
+            <NotAuthorized>
+                Sorry, you don't have an access to be there.
+            </NotAuthorized>
+        </AuthorizeRouteView>
+        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+    </Found>
+    <NotFound>
+        <PageTitle>Not found</PageTitle>
+        <LayoutView Layout="@Template.Current.DefaultLayout">
+            <p role="alert">Sorry, there's nothing at this address.</p>
+        </LayoutView>
+    </NotFound>
+</Router>

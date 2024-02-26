@@ -1,0 +1,44 @@
+﻿@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.Extensions.Options
+
+@attribute [Slots.HeaderTitleSlot]
+
+@inject NavigationManager Navigation
+@inject IOptionsSnapshot<RemoteAuthenticationOptions<ApiAuthorizationProviderOptions>> Options
+@code {
+
+    string loginPath = default!; // authentication/login
+
+    protected override void OnInitialized()
+    {
+        loginPath = Options.Get(Microsoft.Extensions.Options.Options.DefaultName).AuthenticationPaths.LogInPath;
+    }
+
+    void SignOut()
+    {
+        var logoutPath = Options.Get(Microsoft.Extensions.Options.Options.DefaultName).AuthenticationPaths.LogOutPath;
+
+        Navigation.NavigateToLogout(logoutPath);
+    }
+}
+
+<AuthorizeView>
+    <Authorized>
+
+        <MenuButton Class="account-button" Text="@(context.User.Identity?.Name)" Width="175px">
+            <FluentMenuItem OnClick="@((e) => Navigation.NavigateTo("/authentication/identity"))">
+                Account Info
+            </FluentMenuItem>
+            <FluentDivider />
+
+            <FluentMenuItem OnClick="SignOut">
+                Sign out
+            </FluentMenuItem>
+        </MenuButton>
+
+    </Authorized>
+    <NotAuthorized>
+        <h1>BLambda Shell</h1>
+        <a href="@loginPath">Log in</a>
+    </NotAuthorized>
+</AuthorizeView>

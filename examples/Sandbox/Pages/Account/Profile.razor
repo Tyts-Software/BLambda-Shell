@@ -1,0 +1,28 @@
+﻿
+<h1>Welcome @user?.Identity?.Name</h1>
+
+<dl>
+    <dt>@nameof(profile.Phone)</dt>
+    <dd>@profile.Phone</dd>
+</dl>
+
+
+@using System.Text.Json
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
+@* @inject CognitoUserPoolAccount CognitoUserPoolAccount *@
+
+@inject RemoteUserAccount CognitoUserPoolAccount
+@inject AuthenticationStateProvider AuthStateProvider
+@code {
+    ClaimsPrincipal user { get; set; } = default!;
+    CognitoUserPoolAccount profile = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = (await AuthStateProvider.GetAuthenticationStateAsync()).User;
+        profile = (CognitoUserPoolAccount as CognitoUserPoolAccount) ?? new CognitoUserPoolAccount();
+    }
+}

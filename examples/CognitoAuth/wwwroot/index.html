@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CognitoAuth</title>
+    <base href="/" />
+    <link rel="stylesheet" href="css/app.css" />    
+    
+    <!--do NOT remove: inject scoped css from this proj and all referensed-->
+    <link href="CognitoAuth.styles.css" rel="stylesheet" /> 
+</head>
+
+<body>
+    <div id="app">
+        <script src="_content/Microsoft.FluentUI.AspNetCore.Components/js/loading-theme.js" type="text/javascript"></script>
+        <loading-theme storage-name="theme"></loading-theme>
+
+        <div id="loader" style="display: none;">
+            <svg class="loading-progress">
+                <circle r="40%" cx="50%" cy="50%" />
+                <circle r="40%" cx="50%" cy="50%" />
+            </svg>
+            <div class="logo"></div>
+            <div class="loading-progress-text"></div>
+        </div>
+
+        <script type="text/javascript">
+            function IsDark(storageName) {
+                const modeSaved = JSON.parse(localStorage?.getItem(storageName))?.mode ?? "";
+                const isSystemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+                switch (modeSaved) {
+                    case "dark":
+                        return true;
+                    case "light":
+                        return false;
+                    default:
+                        return isSystemDark ? true : false;
+                }
+            };
+
+            const bg = getComputedStyle(document.body).getPropertyValue('background-color');
+            document.documentElement.style.setProperty('--blambda-bg-color', bg);
+
+            const logo = document.querySelector('.logo');
+            if (IsDark("theme")) {
+                logo.classList.add('invert');
+            }
+        </script>
+    </div>
+
+    <div id="blazor-error-ui" style="display: none;">
+        <h1>Error'd, Bro</h1>
+        <p>Show me your face</p>
+        <p><span frown>:(</span></p>
+
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    <script src="./_content/Tyts.BLambda.Blazor.Wasm/js/bl.auth.cognito.min.js"></script>
+    <script src="_framework/blazor.webassembly.js"></script>
+</body>
+
+</html>

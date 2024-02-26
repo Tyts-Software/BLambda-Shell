@@ -1,0 +1,33 @@
+﻿@page "/about"
+@using Tyts.BLambda.Blazor.Application.Module
+
+@inject IModulService ModuleService
+@code{
+    public static readonly string PageUrl = "/about";
+
+    IEnumerable<ModuleInfo> modules = Enumerable.Empty<ModuleInfo>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        modules = await ModuleService.GetModules();
+    }
+
+}
+
+<PageTitle>About BLambda Shell</PageTitle>
+
+<h1>About BLambda Shell</h1>
+
+<p>
+    Welcome to your new app powered by Blazor WASM and designed with FluentUI Web Components.
+</p>
+
+<FluentCard Height="auto">
+    <h3>Loaded modules</h3>
+    <ul>
+    @foreach(var module in modules)
+    {
+        <li>@module.Name @module.Version</li>
+    }
+    </ul>
+</FluentCard>

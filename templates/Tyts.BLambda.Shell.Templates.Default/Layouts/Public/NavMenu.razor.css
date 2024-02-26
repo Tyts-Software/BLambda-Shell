@@ -51,7 +51,18 @@
     ::deep fluent-button::part(control),
     ::deep fluent-anchor::part(control) {
         justify-content: start;
+        border-left-width: thick;
     }
+
+        ::deep fluent-button[aria-selected="true"]::part(control),
+        ::deep fluent-anchor[aria-selected="true"]::part(control) {
+            background: var(--neutral-fill-stealth-active);  /*--neutral-fill-secondary-rest*/
+
+            border-left-color: var(--accent-fill-rest);
+            border-left-width: thick;
+            border-start-start-radius: 0;
+            border-end-start-radius: 0;
+        }
 
     ::deep fluent-button::part(content),
     ::deep fluent-anchor::part(content) {

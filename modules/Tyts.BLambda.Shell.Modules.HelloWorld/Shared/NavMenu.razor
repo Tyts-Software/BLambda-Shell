@@ -22,25 +22,22 @@
         StateHasChanged();
     }
 
-    private Appearance SetAppearance(string location) => 
-        (location == target) 
-            ? Appearance.Accent 
-            : Appearance.Stealth;
+    private string SetSelected(string location) => (location == target).ToString().ToLowerInvariant();
 }
 
 
 <FluentAccordionItem Expanded="true" Heading="Hello World Module">
     <FluentIcon Slot="start" Value="@(new Icons.Regular.Size24.Globe())" />
 
-    <FluentAnchor Href="@HomePage.PageUrl" Appearance=@SetAppearance(HomePage.PageUrl)>
+    <FluentAnchor Href="@HomePage.PageUrl" Appearance="@Appearance.Stealth" aria-selected=@SetSelected(HomePage.PageUrl)>
         Home
         <FluentIcon Slot="start" Value="@(new Icons.Regular.Size24.Home())" />
     </FluentAnchor>
-    <FluentAnchor Href="@CounterPage.PageUrl" Appearance=@SetAppearance(CounterPage.PageUrl)>
+    <FluentAnchor Href="@CounterPage.PageUrl" Appearance="@Appearance.Stealth" aria-selected=@SetSelected(CounterPage.PageUrl)>
         Counter
         <FluentIcon Slot="start" Value="@(new Icons.Regular.Size24.AddSubtractCircle())" />
     </FluentAnchor>
-    <FluentAnchor Href="@ForecastPage.PageUrl" Appearance=@SetAppearance(ForecastPage.PageUrl)>
+    <FluentAnchor Href="@ForecastPage.PageUrl" Appearance="@Appearance.Stealth" aria-selected=@SetSelected(ForecastPage.PageUrl)>
         Weather Forecast
         <FluentIcon Slot="start" Value="@(new Icons.Regular.Size24.Table())" />
     </FluentAnchor>

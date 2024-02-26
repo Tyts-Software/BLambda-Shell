@@ -1,0 +1,18 @@
+﻿@attribute [Authorize]
+@page "/classified"
+
+<PageTitle>Classified</PageTitle>
+
+<h1>Classified</h1>
+
+<AuthorizeView Roles="@Roles.OWNER">
+    Content for Owner
+</AuthorizeView>
+
+<AuthorizeView Roles="@(string.Format("{0}, {1}", Roles.EDITOR, Roles.OWNER))">
+    Content for Editor
+</AuthorizeView>
+
+<AuthorizeView Roles="@(string.Format("{0}, {1}, {2}", Roles.VIEWER, Roles.EDITOR, Roles.OWNER))">
+    Content for Viewer
+</AuthorizeView>

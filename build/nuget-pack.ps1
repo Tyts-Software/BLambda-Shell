@@ -1,11 +1,14 @@
-param ($version='', $configuration='Release')
+param (
+	[Alias('v')]$version='', 
+	[Alias('c')]$configuration='Release'
+)
 
 
 ####### FOR Dev
-### .\nuget-pack.ps1 -configuration Debug
+### .\nuget-pack.ps1 -c Debug
 
 ####### FOR Prod
-####### .\nuget-pack.ps1 -version 0.0.0.1
+####### .\nuget-pack.ps1 -v 0.0.0.1
 
 
 #colored output helper

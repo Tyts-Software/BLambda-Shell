@@ -3,7 +3,7 @@ using Amazon.CDK.AWS.Cognito;
 using Amazon.CDK.AWS.SSM;
 using Constructs;
 using System.Collections.Generic;
-using Tyts.BLambda.Shell.Domain.Auth;
+using Tyts.BLambda.Shell.Application.Auth;
 
 namespace Tyts.BLambda.Shell.Provision;
 
@@ -137,7 +137,8 @@ internal sealed class CognitoConstruct : Construct
                 },
                 LogoutUrls = new[]
                 {
-                    "https://localhost:4433/authentication/logged-out"
+                    "https://localhost:4433/authentication/logged-out",
+                    "https://localhost:4433/"
                 }
             },
             SupportedIdentityProviders = new[]

@@ -1,29 +1,17 @@
-﻿@using Tyts.BLambda.Shell.Settings
+﻿@using Tyts.BLambda.Shell.Pages.Settings
 
-@attribute [Slots.FooterToolbarSlot]
+@attribute [Slots.FooterToolbarSlot(Order = int.MinValue)]
 
 @inject IFlyoutService Flayout
+@inject INavMenuService NavMenu
 @code {
-
+    bool collapsed => !NavMenu.IsExpanded;
 }
 
-<FluentButton slot="label" Appearance="Appearance.Stealth" @onclick="@(()=> Flayout.LeftSidebar.Open("Settings", typeof(Settings)))">
+<FluentButton Appearance="Appearance.Stealth" @onclick="@(()=>Flayout.LeftSidebar.Open("Sidebar Setup", null!))">
+    <FluentIcon Value="@(new Icons.Regular.Size24.MoreHorizontal())" />
+</FluentButton>
+
+<FluentButton slot="end" Appearance="Appearance.Stealth" @onclick="@(()=> Flayout.LeftSidebar.Open("Settings", typeof(Settings)))">
     <FluentIcon Value="@(new Icons.Regular.Size24.Settings())" />
-</FluentButton>
-
-<FluentButton Appearance="Appearance.Stealth" @onclick="()=>Flayout.LeftSidebar.Toggle()">
-    <FluentIcon Value="@(new Icons.Regular.Size24.LayoutColumnOneThirdLeft())" />
-</FluentButton>
-
-
-<FluentButton Appearance="Appearance.Stealth">
-    <FluentIcon Value="@(new Icons.Regular.Size24.BorderNone())" />
-</FluentButton>
-
-<FluentButton Appearance="Appearance.Stealth">
-    <FluentIcon Value="@(new Icons.Regular.Size24.BorderNone())" />
-</FluentButton>
-
-<FluentButton Appearance="Appearance.Stealth" @onclick="() => Flayout.RightSidebar.Toggle()">
-    <FluentIcon Value="@(new Icons.Regular.Size24.LayoutColumnOneThirdRight())" />
 </FluentButton>

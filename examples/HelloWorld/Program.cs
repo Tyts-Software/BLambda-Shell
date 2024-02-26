@@ -2,8 +2,7 @@ using HelloWorld;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using System.Diagnostics;
-using Tyts.BLambda.Blazor;
-using Tyts.BLambda.Blazor.Components;
+using Tyts.BLambda.Shell;
 using Tyts.BLambda.Shell.Templates.Default;
 
 [assembly: System.Runtime.Versioning.SupportedOSPlatformAttribute("browser")]
@@ -14,16 +13,13 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 
-await builder.AddBLambda(blambda =>
+await builder.AddBLambdaShell(shell =>
 {
-    blambda
-        .AddDefault()
-        .AddControls()
-        .AddDefaultTemplate();
+    shell.AddDefaultTemplate();
 });
 
 var app = builder.Build();
-app.UseBLambdaControls();
+app.UseBLambdaShell();
 
 
 await app.RunAsync();

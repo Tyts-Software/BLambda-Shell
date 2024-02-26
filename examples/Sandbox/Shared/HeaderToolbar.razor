@@ -1,0 +1,23 @@
+﻿@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.Extensions.Options
+
+@attribute [Slots.HeaderToolbarSlot(Order = int.MaxValue)]
+
+@inject NavigationManager Navigation
+@inject IOptionsSnapshot<RemoteAuthenticationOptions<ApiAuthorizationProviderOptions>> Options
+@code {
+    void SignOut()
+    {
+        var logoutPath = Options.Get(Microsoft.Extensions.Options.Options.DefaultName).AuthenticationPaths.LogOutPath;
+
+        Navigation.NavigateToLogout(logoutPath);
+    }
+}
+
+<AuthorizeView>
+    <Authorized>
+        <FluentButton Appearance="Appearance.Stealth" @onclick="SignOut" title="Sign out">
+            <FluentIcon Value="@(new Icons.Regular.Size20.SignOut())" />
+        </FluentButton>
+    </Authorized>
+</AuthorizeView>
