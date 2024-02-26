@@ -22,7 +22,7 @@ await builder.AddBLambdaShell(shell =>
         .AddCognito()
         .AddDefaultTemplate(o =>
         {
-            o.UseLockScreen = false;
+            o.UseLockScreen = true;
         });
 });
 

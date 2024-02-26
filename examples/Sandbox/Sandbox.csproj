@@ -19,7 +19,6 @@
 		<PackageReference Include="Microsoft.AspNetCore.WebUtilities" />
 	</ItemGroup>
 
-
 	<ItemGroup>
 		<!--Shell-->
 		<ProjectReference Include="..\..\templates\Tyts.BLambda.Shell.Templates.Default\Tyts.BLambda.Shell.Templates.Default.csproj" />

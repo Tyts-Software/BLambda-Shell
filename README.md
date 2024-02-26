@@ -4,17 +4,23 @@ Modular Blazor WebAssembly application kickstarter.
 
 ## Features
 - Modular (microfrontend if you like)
-- AWS Cognito OIDC Auth
-- [Fluent UI](https://github.com/microsoft/fluentui-blazor) 
+- Responsive
+- Authenticating (AWS Cognito OIDC Auth)
+- Fluent ([Fluent UI](https://github.com/microsoft/fluentui-blazor))
+
 
 ## Getting Started
-
+1. Build artifacts `.\build\nuget-pack.ps1`
 1. Use Tyts.BLambda.Shell.sln
 1. Look at examples
 1. Play in Sandbox
 
-## Examples
 
+## Default template should look like
+![Demo](screenshort.jpg?raw=true)
+
+
+## Othere Examples
 Examples use artifacts, to build them use `.\build\nuget-pack.ps1`
 
 |								| Description	|
@@ -23,5 +29,4 @@ Examples use artifacts, to build them use `.\build\nuget-pack.ps1`
 | CognitoAuth					| AWS Cognito OIDC Authentication example |
 | LockScreen					| AWS Cognito OIDC Authentication example |
 | Modularity					| BLambda Shell with few basic modules |
-| **Sandbox**						| While other examples a kind of stable Sandbox is a playground |
 

@@ -4,7 +4,7 @@
 		<AwsTargetFramework>net6.0</AwsTargetFramework>
 		<BlazorTargetFramework>net8.0</BlazorTargetFramework>
 		
-		<BLambdaVersion>0.0.1-alpha.2</BLambdaVersion>
+		<BLambdaVersion>0.0.1-alpha.3</BLambdaVersion>
 	</PropertyGroup>
 	<ItemGroup>
 		<!--Blazor-->
